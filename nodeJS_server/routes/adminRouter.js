@@ -1,7 +1,8 @@
 const express = require('express')
 const adminModel = require('../models/adminModel')
-const authorRouter = require('../models/authorModel')
-const categoryRouter = require('../models/categoryModel')
+const authorModel = require('../models/authorModel')
+const categoryModel = require('../models/categoryModel')
+const bookModel = require('../models/bookModel')
 const jwt = require('jsonwebtoken')
 const adminRouter = express.Router()
 
@@ -13,7 +14,7 @@ adminRouter.post('/', (req, res) => {
         if (err || data.length === 0) {
             console.log(err)
             res.send(err);
-        }else {
+        } else {
             console.log(newReq.email)
             // console.log(data[0].tokens)
             //create token here.
@@ -45,25 +46,60 @@ adminRouter.post('/', (req, res) => {
     })
 
 })
+// list books to the admin
+adminRouter.get('/books', (req, res) => {
+    bookModel.find({}, (err, books) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.json(books)
+        }
+
+    })
+})
+// add book
+adminRouter.post('/books', (req, res) => {
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+
+    let new_book = {
+        name: new_req.name,
+        category_id: new_req.category_id,
+        author_id: new_req.author_id,
+        rating: new_req.rating
+    }
+
+    bookModel.create(new_book, (err, data) => {
+        if (err) {
+            res.send(err)
+        }
+        else {
+            res.redirect("/admin/books")
+        }
+    })
+
+})
+module.exports = adminRouter
+
 
 //list authors
-authorRouter.get("/authors",(req,res)=>{
-    authorRouter.find({},(err,data)=>{
+adminRouter.get("/authors",(req,res)=>{
+    authorModel.find({},(err,data)=>{
         if(!err)
     res.JSON(data);
 });
 });
 
 //list categories
-categoryRouter.get("/categories",(req,res)=>{
+adminRouter.get("/categories",(req,res)=>{
     if(!err)
-    authorRouter.find({},(err,data)=>{
+    authorModel.find({},(err,data)=>{
     res.JSON(data);
 });
 });
 
 //add author
-authorRouter.post("/authors",(req,res)=>{
+adminRouter.post("/authors",(req,res)=>{
     let newReq = JSON.parse(Object.keys(req.body)[0])
     const author = new authorModel({first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
     author.save((err,data)=>{
@@ -72,7 +108,7 @@ authorRouter.post("/authors",(req,res)=>{
 });
 
 //add category
-categoryRouter.post("/categories",(req,res)=>{
+adminRouter.post("/categories",(req,res)=>{
     let newReq = JSON.parse(Object.keys(req.body)[0])
     const category = new categoryModel({name:newReq.name});
     category.save((err,data)=>{
@@ -81,3 +117,4 @@ categoryRouter.post("/categories",(req,res)=>{
 });
 
 module.exports = adminRouter
+
