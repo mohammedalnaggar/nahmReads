@@ -48,7 +48,7 @@ function request_response() {
             console.log(this.response);
         }
     };
-    xhttp.open("POST", "http://192.168.1.90:5000/admin");
+    xhttp.open("POST", "http://192.168.1.104:5000/users");
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(JSON.stringify({
         first_name: signup_div.getElementsByTagName("input")[0].value,

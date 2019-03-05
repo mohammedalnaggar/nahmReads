@@ -5,21 +5,21 @@ const jwt = require('jsonwebtoken')
 const usersRouter = express.Router()
 
 
-// for signing up new user
+// signing up new user
 usersRouter.post('/', (req, res) => {
-
-    console.log(req.body)
+    new_req = JSON.parse(Object.keys(req.body)[0])
+    console.log(new_req)
     // check if the email already exists
-    userModel.find({email: req.body.email} , (err, data) => {
+    userModel.find({email: new_req.email} , (err, data) => {
         if(!err){
             if(!data[0]){
                 // register newuser
-                console.log(req.body)
-                let new_user = new userModel
-                new_user.name.first_name = req.body.name.first_name
-                new_user.name.last_name = req.body.name.last_name
-                new_user.email = req.body.email
-                new_user.password = req.body.password
+                console.log(new_req)
+                
+                // new_user.name.first_name = new_req.first_name
+                // new_user.name.last_name = new_req.last_name
+                // new_user.email = new_req.email
+                // new_user.password = new_req.password
                 
                 // create a token
                 const data = {
@@ -31,29 +31,49 @@ usersRouter.post('/', (req, res) => {
                     })
                 }
                 // attach token on the user object body
-                new_user.tokens = [token];
-                console.log(token)
+                // new_user.tokens = [token];
+                let new_user = {
+                    name: {
+                        first_name: new_req.first_name,
+                        last_name: new_req.last_name
+                    },
+                    email: new_req.email,
+                    password: new_req.password,
+                    tokens: [
+                        token
+                    ]
+                }
+                console.log(new_user)
+
                 userModel.create( new_user , (err , data) => {
                     if(err){
                         // as long as all fields will not be null from client side >> check mail only not
                         // existing
-                        res.json({ message: "Invalid saving in create!" })
+                        res.send(err)
+                        res.json({ message: "Email already exists .. from create!" })
                     }
                     else {
-                        res.send(data)
+                        res.send({
+                            message: "auth",
+                            token
+                        })
                     }
                 })
             } else {
                 res.json({ message: "Invalid email!" })
             }
+        } else{
+            res.send(err);
         }
     })
 })
 
 usersRouter.post('/login', (req, res, next) => {
-    console.log(req.body)
 
-    userModel.find({email: req.body.email , password : req.body.password} , (err, data) =>{
+    new_req = JSON.parse(Object.keys(req.body)[0])
+
+    console.log(new_req)
+    userModel.find({email: new_req.email , password : new_req.password} , (err, data) =>{
         if(!err){
             if(data[0]){
                 // create a new token for logged in user
@@ -73,12 +93,16 @@ usersRouter.post('/login', (req, res, next) => {
                 new_tokens.push(token)
                 console.log(new_tokens)
 
-                userModel.updateOne({email: req.body.email}, {$set: {
+                userModel.updateOne({email: new_req.email}, {$set: {
                     tokens: new_tokens
                 }}, (err, data) => {
                     if(!err){
                         console.log()
-                        res.send(new_tokens);
+                        // send the new token to the client
+                        res.send({
+                            message: "authinticated",
+                            token
+                        });
                     } else {
                         res.send(err)
                     }
