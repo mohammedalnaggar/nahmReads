@@ -7,6 +7,7 @@ require('./connection/DBconnector')
 const app = express();
 
 const usersRouter = require('./routes/usersRouter')
+const adminRouter = require('./routes/adminRouter')
 
 app.use(express.urlencoded());
 app.use(express.json())
@@ -17,7 +18,12 @@ app.use(function(req,res,next){
     next();
 });
 
+// users route handler
 app.use('/users', usersRouter)
+
+
+// admin route handler
+app.use('/admin', adminRouter)
 
 
 app.listen(PORT,"0.0.0.0", () => {
