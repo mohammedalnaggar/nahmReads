@@ -1,0 +1,19 @@
+{
+  "name": "hamanireads",
+  "version": "1.0.0",
+  "description": "web app simulation for goodReads website",
+  "main": "index.js",
+  "scripts": {
+    "start":"sudo iptables -F && nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "naggar",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^3.1.6",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^5.4.16",
+    "validator": "^10.11.0"
+  }
+}
