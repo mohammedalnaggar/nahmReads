@@ -1,11 +1,12 @@
 const express = require('express')
 const adminModel = require('../models/adminModel')
+const authorRouter = require('../models/authorModel')
+const categoryRouter = require('../models/categoryModel')
 const jwt = require('jsonwebtoken')
-
 const adminRouter = express.Router()
 
+//validate admin data
 adminRouter.post('/', (req, res) => {
-
     let newReq = JSON.parse(Object.keys(req.body)[0])
     console.log(newReq)
     adminModel.find({ email: newReq.email, password: newReq.password }, (err, data) => {
@@ -44,5 +45,39 @@ adminRouter.post('/', (req, res) => {
     })
 
 })
+
+//list authors
+authorRouter.get("/authors",(req,res)=>{
+    authorRouter.find({},(err,data)=>{
+        if(!err)
+    res.JSON(data);
+});
+});
+
+//list categories
+categoryRouter.get("/categories",(req,res)=>{
+    if(!err)
+    authorRouter.find({},(err,data)=>{
+    res.JSON(data);
+});
+});
+
+//add author
+authorRouter.post("/authors",(req,res)=>{
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    const author = new authorModel({first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
+    author.save((err,data)=>{
+        if(!err)res.redirect("/admin/authors");
+});
+});
+
+//add category
+categoryRouter.post("/categories",(req,res)=>{
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    const category = new categoryModel({name:newReq.name});
+    category.save((err,data)=>{
+        if(!err)res.redirect("/admin/categories");
+});
+});
 
 module.exports = adminRouter
