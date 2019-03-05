@@ -10,6 +10,8 @@ signup_button.addEventListener("click", (event) => {
     let password = signup_div.getElementsByTagName("input")[3].value;
     let repassword = signup_div.getElementsByTagName("input")[4].value;
     if (password === repassword) {
+        password = md5(password);
+        console.log(password)
         request_response();
     }
 
@@ -52,7 +54,7 @@ function request_response() {
         first_name: signup_div.getElementsByTagName("input")[0].value,
         last_name: signup_div.getElementsByTagName("input")[1].value,
         email: signup_div.getElementsByTagName("input")[2].value,
-        password: md5(signup_div.getElementsByTagName("input")[3].value)
+        password: signup_div.getElementsByTagName("input")[3].value
     })
     )
 };
