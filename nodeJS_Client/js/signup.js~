@@ -10,6 +10,8 @@ signup_button.addEventListener("click", (event) => {
     let password = signup_div.getElementsByTagName("input")[3].value;
     let repassword = signup_div.getElementsByTagName("input")[4].value;
     if (password === repassword) {
+        password = md5(password);
+        console.log(password)
         request_response();
     }
 
@@ -46,13 +48,13 @@ function request_response() {
             console.log(this.response);
         }
     };
-    xhttp.open("POST", "http://192.168.1.104:5000/users");
+    xhttp.open("POST", "http://192.168.1.90:5000/admin");
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(JSON.stringify({
         first_name: signup_div.getElementsByTagName("input")[0].value,
         last_name: signup_div.getElementsByTagName("input")[1].value,
         email: signup_div.getElementsByTagName("input")[2].value,
-        password: md5(signup_div.getElementsByTagName("input")[3].value)
+        password: signup_div.getElementsByTagName("input")[3].value
     })
     )
 };

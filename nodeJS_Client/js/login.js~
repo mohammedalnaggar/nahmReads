@@ -6,6 +6,7 @@ let login_button=login_div.getElementsByTagName("button")[0];
 login_button.addEventListener("click",(event)=>{
     event.preventDefault();
     let password=login_div.getElementsByTagName("input")[7].value;
+        password=md5(password);
         request_response();
     
 })
@@ -23,7 +24,7 @@ function request_response(){
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(JSON.stringify({
         email:signup_div.getElementsByTagName("input")[6].value,
-        password:md5(signup_div.getElementsByTagName("input")[7].value)
+        password:signup_div.getElementsByTagName("input")[7].value
     })
     )};
 
