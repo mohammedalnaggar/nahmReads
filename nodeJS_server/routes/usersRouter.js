@@ -15,12 +15,7 @@ usersRouter.post('/', (req, res) => {
             if(!data[0]){
                 // register newuser
                 console.log(new_req)
-                
-                // new_user.name.first_name = new_req.first_name
-                // new_user.name.last_name = new_req.last_name
-                // new_user.email = new_req.email
-                // new_user.password = new_req.password
-                
+            
                 // create a token
                 const data = {
                     check: true

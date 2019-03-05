@@ -1,7 +1,5 @@
 let signup_div = document.getElementById("signup");
-let login_div = document.getElementById("login");
 let signup_button = signup_div.getElementsByTagName("button")[0];
-let login_button = login_div.getElementsByTagName("button")[0];
 
 
 
