@@ -1,5 +1,6 @@
 const express = require('express')
 const adminModel = require('../models/adminModel')
+const bookModel = require('../models/bookModel')
 const jwt = require('jsonwebtoken')
 
 const adminRouter = express.Router()
@@ -12,7 +13,7 @@ adminRouter.post('/', (req, res) => {
         if (err || data.length === 0) {
             console.log(err)
             res.send(err);
-        }else {
+        } else {
             console.log(newReq.email)
             // console.log(data[0].tokens)
             //create token here.
@@ -44,5 +45,39 @@ adminRouter.post('/', (req, res) => {
     })
 
 })
+// list books to the admin
+adminRouter.get('/books', (req, res) => {
+    bookModel.find({}, (err, books) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.json(books)
+        }
 
+    })
+})
+// add book
+adminRouter.post('/books', (req, res) => {
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+
+    let new_book = {
+        name: new_req.name,
+        category_id: new_req.category_id,
+        author_id: new_req.author_id,
+        rating: new_req.rating
+    }
+
+    bookModel.create(new_book, (err, data) => {
+        if (err) {
+            res.send(err)
+        }
+        else {
+            res.redirect("/admin/books")
+        }
+    })
+
+})
 module.exports = adminRouter
+
+
