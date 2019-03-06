@@ -53,14 +53,15 @@ adminRouter.get('/books', (req, res) => {
             console.log(err)
         }
         else {
-            res.json(books)
+            res.send(books)
         }
 
     })
 })
 // add book
 adminRouter.post('/books', (req, res) => {
-    let new_req = JSON.parse(Object.keys(req.body)[0])
+    // let new_req = JSON.parse(Object.keys(req.body)[0])
+    let new_req=req.body
 
     let new_book = {
         name: new_req.name,
@@ -86,21 +87,24 @@ module.exports = adminRouter
 adminRouter.get("/authors",(req,res)=>{
     authorModel.find({},(err,data)=>{
         if(!err)
-    res.JSON(data);
+    res.send(data);
 });
 });
 
 //list categories
 adminRouter.get("/categories",(req,res)=>{
-    if(!err)
-    authorModel.find({},(err,data)=>{
-    res.JSON(data);
+    categoryModel.find({},(err,data)=>{
+        
+        if (!err)
+        console.log(data)
+            res.send(data);
 });
 });
 
 //add author
 adminRouter.post("/authors",(req,res)=>{
-    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq = JSON.parse(Object.keys(req.body)[0])
+    let newReq=req.body
     const author = new authorModel({first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
     author.save((err,data)=>{
         if(!err)res.redirect("/admin/authors");
@@ -109,7 +113,8 @@ adminRouter.post("/authors",(req,res)=>{
 
 //add category
 adminRouter.post("/categories",(req,res)=>{
-    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq = JSON.parse(Object.keys(req.body)[0])
+    let newReq=req.body
     const category = new categoryModel({name:newReq.name});
     category.save((err,data)=>{
         if(!err)res.redirect("/admin/categories");
