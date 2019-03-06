@@ -192,7 +192,7 @@ adminRouter.get('/data', function (req, res) {
     authorModel.find({})
         .then((data) => {
             data_object.authors = data
-        }).then(async () => { res.send(data_object) })
+        }).then(() => { res.send(data_object) })
 })
 
 module.exports = adminRouter
