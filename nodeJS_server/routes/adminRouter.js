@@ -115,6 +115,7 @@ adminRouter.post("/authors",(req,res)=>{
 adminRouter.post("/categories",(req,res)=>{
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq=req.body
+    console.log(newReq)
     const category = new categoryModel({name:newReq.name});
     category.save((err,data)=>{
         if(!err)res.redirect("/admin/categories");
