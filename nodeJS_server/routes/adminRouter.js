@@ -60,8 +60,8 @@ adminRouter.get('/books', (req, res) => {
 })
 // add book
 adminRouter.post('/books', (req, res) => {
-    // let new_req = JSON.parse(Object.keys(req.body)[0])
-    let new_req=req.body
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+    // let new_req=req.body
 
     let new_book = {
         name: new_req.name,
@@ -103,8 +103,8 @@ adminRouter.get("/categories",(req,res)=>{
 
 //add author
 adminRouter.post("/authors",(req,res)=>{
-    // let newReq = JSON.parse(Object.keys(req.body)[0])
-    let newReq=req.body
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq=req.body
     const author = new authorModel({first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
     author.save((err,data)=>{
         if(!err)res.redirect("/admin/authors");
@@ -113,8 +113,8 @@ adminRouter.post("/authors",(req,res)=>{
 
 //add category
 adminRouter.post("/categories",(req,res)=>{
-    // let newReq = JSON.parse(Object.keys(req.body)[0])
-    let newReq=req.body
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq=req.body
     const category = new categoryModel({name:newReq.name});
     category.save((err,data)=>{
         if(!err)res.redirect("/admin/categories");
