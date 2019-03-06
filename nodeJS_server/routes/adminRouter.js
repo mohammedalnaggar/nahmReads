@@ -60,8 +60,8 @@ adminRouter.get('/books', (req, res) => {
 })
 // add book
 adminRouter.post('/books', (req, res) => {
-    // let new_req = JSON.parse(Object.keys(req.body)[0])
-    let new_req = req.body
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+    // let new_req=req.body
 
     let new_book = {
         name: new_req.name,
@@ -82,8 +82,8 @@ adminRouter.post('/books', (req, res) => {
 })
 //edit book
 adminRouter.put('/books/:id', (req, res) => {
-    // let new_req = JSON.parse(Object.keys(req.body)[0])
-    let new_req = req.body
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+    // let new_req = req.body
     bookModel.updateOne({ _id: req.params.id }, {
         name: new_req.name,
         category_id: new_req.category_id,
@@ -113,19 +113,18 @@ adminRouter.get("/authors", (req, res) => {
 });
 
 //add author
-adminRouter.post("/authors", (req, res) => {
-    // let newReq = JSON.parse(Object.keys(req.body)[0])
-    let newReq = req.body
-    const author = new authorModel({ first_name: newReq.first_name, last_name: newReq.last_name, birth_date: newReq.birth_date });
-    author.save((err, data) => {
-        if (!err) res.redirect("/admin/authors");
-    });
+adminRouter.post("/authors",(req,res)=>{
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq=req.body
+    const author = new authorModel({first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
+    author.save((err,data)=>{
+        if(!err)res.redirect("/admin/authors");
 });
-
+});
 //edit author
 adminRouter.put("/authors/:id", (req, res) => {
-    // let newReq = JSON.parse(Object.keys(req.body)[0])
-    let newReq = req.body
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq = req.body
     authorModel.updateOne({ _id: req.params.id }, { first_name: newReq.first_name, last_name: newReq.last_name, birth_date: newReq.birth_date }
         , (err) => {
             if (!err)
@@ -154,19 +153,20 @@ adminRouter.get("/categories", (req, res) => {
 
 
 //add category
-adminRouter.post("/categories", (req, res) => {
-    // let newReq = JSON.parse(Object.keys(req.body)[0])
-    let newReq = req.body
-    const category = new categoryModel({ name: newReq.name });
-    category.save((err, data) => {
-        if (!err) res.redirect("/admin/categories");
+adminRouter.post("/categories",(req,res)=>{
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq=req.body
+    console.log(newReq)
+    const category = new categoryModel({name:newReq.name});
+    category.save((err,data)=>{
+        if(!err)res.redirect("/admin/categories");
     });
 });
 
 //edit category
 adminRouter.put("/categories/:id", (req, res) => {
-    // let newReq = JSON.parse(Object.keys(req.body)[0])
-    let newReq = req.body
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq = req.body
     categoryModel.updateOne({ _id: req.params.id }, { name: newReq.name }, (err) => {
         if (!err)
             res.redirect("/admin/categories");
