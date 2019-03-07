@@ -54,6 +54,7 @@ function openAddForm(x) {
 }
 
 function openEditForm(x, el) {
+  const route = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
   if (x === 1) {
     document.getElementById("editCategoryForm").style.display = "block";
     fillEditForm(el);
@@ -92,13 +93,13 @@ function deleteRow(el) {
   }
 }
 
-function addRow(tableID) {
+function addRow(tableID,data=null) {
   let table = document.getElementById(tableID);
-
+  const route = table.parentElement.parentElement.getAttribute("id")
   if (!table) return;
-
+  document.getElementById(route+"FirstRow").style.display="none"
   let newRow = table.rows[1].cloneNode(true);
-
+  newRow.style.display="table-row"
   // Now get the inputs and modify their names 
   let inputs = newRow.getElementsByTagName('td');
 
@@ -110,7 +111,7 @@ function addRow(tableID) {
     } else {
 
       // put your object attributes here
-      inputs[i].innerText = 'hamaniiii'
+      inputs[i].innerText = data[i]
     }
   }
 
@@ -130,3 +131,20 @@ function fillEditForm(el) {
     // send the request to the server here 
   }
 }
+
+// onload section
+window.addEventListener("load", (evt) => {
+  listCategories();
+  listAuthors();
+})
+
+// list all rows in table
+function listRows(response,table_id){
+JSON.parse(response).forEach(element => {
+  let arr=[]
+  for (x in element){
+    arr.push(element[x])
+  }
+  addRow(table_id,arr)
+
+});}
