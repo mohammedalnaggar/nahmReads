@@ -80,25 +80,36 @@ adminRouter.post('/books', (req, res) => {
     })
 
 })
-module.exports = adminRouter
+//edit book
+adminRouter.put('/books/:id', (req, res) => {
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+    // let new_req = req.body
+    bookModel.updateOne({ _id: req.params.id }, {
+        name: new_req.name,
+        category_id: new_req.category_id,
+        author_id: new_req.author_id,
+        rating: new_req.rating
+    }, (err) => {
+        if (!err)
+            res.redirect("/admin/books")
+    })
+})
+// delete book
+adminRouter.delete('/books/:id', function (req, res) {
+    bookModel.findOneAndDelete({ _id: req.params.id }, (err) => {
+        if (!err) {
+            res.redirect("/admin/books");
+        }
+    })
+});
 
 
 //list authors
-adminRouter.get("/authors",(req,res)=>{
-    authorModel.find({},(err,data)=>{
-        if(!err)
-    res.send(data);
-});
-});
-
-//list categories
-adminRouter.get("/categories",(req,res)=>{
-    categoryModel.find({},(err,data)=>{
-        
+adminRouter.get("/authors", (req, res) => {
+    authorModel.find({}, (err, data) => {
         if (!err)
-        console.log(data)
             res.send(data);
-});
+    });
 });
 
 //add author
@@ -110,6 +121,36 @@ adminRouter.post("/authors",(req,res)=>{
         if(!err)res.redirect("/admin/authors");
 });
 });
+//edit author
+adminRouter.put("/authors/:id", (req, res) => {
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq = req.body
+    authorModel.updateOne({ _id: req.params.id }, { first_name: newReq.first_name, last_name: newReq.last_name, birth_date: newReq.birth_date }
+        , (err) => {
+            if (!err)
+                res.redirect("/admin/authors");
+        });
+});
+//delete author
+adminRouter.delete('/authors/:id', function (req, res) {
+    authorModel.findOneAndDelete({ _id: req.params.id }, (err) => {
+        if (!err) {
+            res.redirect("/admin/authors");
+        }
+    })
+});
+
+
+
+//list categories
+adminRouter.get("/categories", (req, res) => {
+    categoryModel.find({}, (err, data) => {
+        if (!err)
+            console.log(data)
+        res.send(data);
+    });
+});
+
 
 //add category
 adminRouter.post("/categories",(req,res)=>{
@@ -119,8 +160,40 @@ adminRouter.post("/categories",(req,res)=>{
     const category = new categoryModel({name:newReq.name});
     category.save((err,data)=>{
         if(!err)res.redirect("/admin/categories");
+    });
 });
+
+//edit category
+adminRouter.put("/categories/:id", (req, res) => {
+    let newReq = JSON.parse(Object.keys(req.body)[0])
+    // let newReq = req.body
+    categoryModel.updateOne({ _id: req.params.id }, { name: newReq.name }, (err) => {
+        if (!err)
+            res.redirect("/admin/categories");
+    });
 });
+//delete category
+adminRouter.delete('/categories/:id', function (req, res) {
+
+    categoryModel.findOneAndDelete({ _id: req.params.id }, (err) => {
+        if (!err)
+            res.redirect("/admin/categories")
+    }
+    )
+
+});
+//middleware for categories and authors lists
+adminRouter.get('/data', function (req, res) {
+    const data_object = { categories: null, authors: null }
+    categoryModel.find({})
+        .then((data) => {
+            data_object.categories = data
+        })
+    authorModel.find({})
+        .then((data) => {
+            data_object.authors = data
+        }).then(() => { res.send(data_object) })
+})
 
 module.exports = adminRouter
 
