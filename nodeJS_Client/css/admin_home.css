@@ -256,9 +256,9 @@ textarea {
 }
 
 .form-container {
-  max-width: 300px;
+  max-width: 100%;
   padding: 10px;
-  background-color: white;
+  /* background-color: white; */
 }
 
 /* drop down menu css */
