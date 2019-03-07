@@ -88,17 +88,27 @@ function closeEditForm(x) {
 }
 
 function deleteRow(el) {
-
+  let route = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
+  console.log(route)
   // while there are parents, keep going until reach TR 
   while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
-    el = el.parentNode;
+    el = el.parentNode
   }
   if (el.parentNode && el.parentNode.rows.length > 0) {
 
     let idToDelete = el.firstElementChild.innerText
+
     console.log(idToDelete)
     // send the request to the server here 
-
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.response);
+      }
+    };
+    xhttp.open("DELETE", `http://127.0.0.1:5000/admin/${route}/${idToDelete}`);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send();
     el.parentNode.removeChild(el);
   }
 }
@@ -119,30 +129,25 @@ function editRow(el){
   }
 }
 
-function addRow(tableID) {
+function addRow(tableID,arr=null) {
   let table = document.getElementById(tableID);
 
   if (!table) return;
 
   let newRow = table.rows[1].cloneNode(true);
-
+  
   // Now get the inputs and modify their names 
   let inputs = newRow.getElementsByTagName('td');
 
-  for (let i = 0, iLen = inputs.length; i < iLen; i++) {
+    inputs[0].innerText = arr[0]
+    inputs[1].innerText = arr[1]
+    inputs[2].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(1, this)" style="width:48px">'
+  
+    
     // Update inputs[i]
-
-    if (i === inputs.length - 1) {
-      inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(1, this)" style="width:48px">'
-    } else {
-
-      // put your object attributes here
-      inputs[i].innerText = 'hamaniiii'
-    }
-  }
-
+    
   // Add the new row to the tBody (required for IE)
-  let tBody = table.tBodies[0];
+ let tBody = table.tBodies[0];
   tBody.insertBefore(newRow, tBody.lastChild);
 }
 

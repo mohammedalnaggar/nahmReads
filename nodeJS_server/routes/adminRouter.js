@@ -116,6 +116,7 @@ adminRouter.get("/authors", (req, res) => {
 adminRouter.post("/authors",(req,res)=>{
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq=req.body
+    console.log(newReq)
     const author = new authorModel({first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
     author.save((err,data)=>{
         if(!err)res.redirect("/admin/authors");
@@ -146,7 +147,7 @@ adminRouter.delete('/authors/:id', function (req, res) {
 adminRouter.get("/categories", (req, res) => {
     categoryModel.find({}, (err, data) => {
         if (!err)
-            console.log(data)
+        
         res.send(data);
     });
 });
@@ -174,7 +175,7 @@ adminRouter.put("/categories/:id", (req, res) => {
 });
 //delete category
 adminRouter.delete('/categories/:id', function (req, res) {
-
+    console.log(req.body)
     categoryModel.findOneAndDelete({ _id: req.params.id }, (err) => {
         if (!err)
             res.redirect("/admin/categories")
