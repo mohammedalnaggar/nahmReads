@@ -58,6 +58,14 @@ function openEditForm(x, el) {
     document.getElementById("editCategoryForm").style.display = "block";
     fillEditForm(el);
   }
+  if (x === 2) {
+    document.getElementById("editBookForm").style.display = "block";
+    // fillEditForm(el);
+  }
+  if (x === 3) {
+    document.getElementById("editAuthorForm").style.display = "block";
+    // fillEditForm(el);
+  }
 
 }
 
@@ -73,7 +81,10 @@ function closeAddForm(x) {
 function closeEditForm(x) {
   if (x === 1)
     document.getElementById("editCategoryForm").style.display = "none";
-
+  if (x === 2)
+    document.getElementById("editBookForm").style.display = "none";
+  if (x === 3)
+    document.getElementById("editAuthorForm").style.display = "none";
 }
 
 function deleteRow(el) {
@@ -89,6 +100,22 @@ function deleteRow(el) {
     // send the request to the server here 
 
     el.parentNode.removeChild(el);
+  }
+}
+
+function editRow(el){
+  // while there are parents, keep going until reach tr
+
+  console.log(hamaaaaaanoaos)
+  while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
+    el = el.parentNode;
+  }
+  if (el.parentNode && el.parentNode.rows.length > 0) {
+
+    el.firstElementChild.innerText = document.getElementById("categoryEditTF").value 
+    // send the request to the server here 
+    console.log(el.firstElementChild.innerText)
+
   }
 }
 
