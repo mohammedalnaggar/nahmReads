@@ -147,7 +147,7 @@ adminRouter.delete('/authors/:id', function (req, res) {
 adminRouter.get("/categories", (req, res) => {
     categoryModel.find({}, (err, data) => {
         if (!err)
-            console.log(data)
+        
         res.send(data);
     });
 });
@@ -175,7 +175,7 @@ adminRouter.put("/categories/:id", (req, res) => {
 });
 //delete category
 adminRouter.delete('/categories/:id', function (req, res) {
-
+    console.log(req.body)
     categoryModel.findOneAndDelete({ _id: req.params.id }, (err) => {
         if (!err)
             res.redirect("/admin/categories")
