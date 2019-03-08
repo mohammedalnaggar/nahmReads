@@ -1,12 +1,15 @@
 const bookAddBtn = document.getElementById("addNewBookBtn");
-bookAddBtn.addEventListener("click", function () {
+bookAddBtn.addEventListener("click", function (evt) {
+  evt.preventDefault()
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      console.log(this.response);
+      let response=JSON.parse(this.response)[JSON.parse(this.response).length-1]
+      let book_arr = [response._id,response.name.first_name+" "+response.name.last_name, response.category_id,response.author_id]
+      addRow("booksTable",book_arr)
     }
   };
-  xhttp.open("POST", "http://192.168.1.96:5000/admin/books");
+  xhttp.open("POST", "http://localhost:5000/admin/books");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(JSON.stringify({
     "name": document.getElementById("newBookName").value,
@@ -15,3 +18,35 @@ bookAddBtn.addEventListener("click", function () {
     "rating": 0
   }));
 });
+
+
+function editBook(id){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response=JSON.parse(this.response)[JSON.parse(this.response).length-1]
+      let book_arr = [response._id,response.name, response.category_id,response.author_id]
+      // addRow("authorsTable",author_arr)
+    }
+  };
+  xhttp.open("PUT", `http://localhost:5000/admin/books/${id}`);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(JSON.stringify({
+    "name": document.getElementById("editBookName").value,
+    "author_id": document.getElementById("editAuthorChoice").value,
+    "category_id": document.getElementById("editCategoryChoice").value
+  }));
+}
+
+function listBooks() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.response)
+      listRows(this.response,"booksTable")
+    }
+  };
+  xhttp.open("GET", "http://localhost:5000/admin/books");
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send()
+};

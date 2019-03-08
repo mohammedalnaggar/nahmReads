@@ -16,7 +16,7 @@
 
         <ul class="tab-group">
             <li class="tab active" id="categoriesTab"><a href="#categories">Categories</a></li>
-            <li class="tab" id="booksTab"><a href="#books">Books</a></li>
+            <li class="tab" id="booksTab" onclick="listAuthorsCategories()"><a href="#books">Books</a></li>
             <li class="tab" id="authorsTab"><a href="#authors">Authors</a></li>
         </ul>
 
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="field-wrap">
-                                <button id="editCategoryBtn" type="submit" class="button" onclick="editRow(this)" style="padding: 10px">
+                                <button id="editCategoryBtn" type="submit" class="button"  style="padding: 10px">
                                     Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeEditForm(1)">Close</button>
                             </div>
@@ -95,7 +95,7 @@
                         <th class="cell"> AuthorID </th>
                         <th class="cell"> Actions </th>
 
-                        <tr>
+                        <tr id="booksFirstRow">
                             <td> 1</td>
                             <td> photo</td>
                             <td> Eslam Salah</td>
@@ -130,8 +130,6 @@
                                     </div>
                                     <input id="addCategoryChoice" type="hidden" name="gender">
                                     <ul class="dropdown-menu">
-                                        <li id="male">horror</li>
-                                        <li id="female">comedy</li>
                                     </ul>
                                 </div>
                             </div>
@@ -145,8 +143,6 @@
                                     </div>
                                     <input id="addAuthorChoice" type="hidden" name="author">
                                     <ul class="dropdown-menu">
-                                        <li id="male">Mohammed</li>
-                                        <li id="female">Anas</li>
                                     </ul>
                                 </div>
                             </div>
@@ -172,7 +168,7 @@
                                 <label>
                                     Book Name<span class="req">*</span>
                                 </label>
-                                <input id="newBookName" type="text" required autocomplete="off" style="width:100%" />
+                                <input id="editBookName" type="text" required autocomplete="off" style="width:100%" />
                             </div>
 
                             <div class="container">
@@ -182,10 +178,8 @@
                                         <span>Select Category</span>
                                         <i class="fa fa-chevron-left"></i>
                                     </div>
-                                    <input id="addCategoryChoice" type="hidden" name="gender">
+                                    <input id="editCategoryChoice" type="hidden" name="gender">
                                     <ul class="dropdown-menu">
-                                        <li id="male">horror</li>
-                                        <li id="female">comedy</li>
                                     </ul>
                                 </div>
                             </div>
@@ -197,10 +191,8 @@
                                         <span>Select Author</span>
                                         <i class="fa fa-chevron-left"></i>
                                     </div>
-                                    <input id="addAuthorChoice" type="hidden" name="author">
+                                    <input id="editAuthorChoice" type="hidden" name="author">
                                     <ul class="dropdown-menu">
-                                        <li id="male">Mohammed</li>
-                                        <li id="female">Anas</li>
                                     </ul>
                                 </div>
                             </div>
@@ -232,7 +224,7 @@
                         <th class="cell"> DOB </th>
                         <th class="cell"> Actions </th>
                         <tr id="authorsFirstRow">
-                            <td> </td>
+                            <td> mm </td>
                             <td> </td>
                             <td> </td>
                             <td> </td>
@@ -315,7 +307,7 @@
                             </div>
 
                             <div class="field-wrap" style="margin-top:50px">
-                                <button id="addNewAuthorBtn" type="submit" class="button" onclick="addRow('authorsTable')" style="padding: 10px"> Submit</button>
+                                <button id="editAuthorBtn" type="submit" class="button" onclick="editRow('authorsTable')" style="padding: 10px"> Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeEditForm(3)">Close</button>
                             </div>
 

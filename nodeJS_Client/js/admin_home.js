@@ -30,18 +30,7 @@ $('.dropdown').focusout(function () {
   $(this).removeClass('active');
   $(this).find('.dropdown-menu').slideUp(300);
 });
-$('.dropdown .dropdown-menu li').click(function () {
-  $(this).parents('.dropdown').find('span').text($(this).text());
-  $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-});
-/*End Dropdown Menu*/
 
-
-$('.dropdown-menu li').click(function () {
-  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-    msg = '<span class="msg">Hidden input value: ';
-  $('.msg').html(msg + input + '</span>');
-});
 
 // common functions in three tabs (to add & remove & edit tables && manipulating forms)
 function openAddForm(x) {
@@ -117,8 +106,8 @@ function deleteRow(el) {
 
 function editRow(el){
   // while there are parents, keep going until reach tr
-
-  console.log(hamaaaaaanoaos)
+  const route = el.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
+  console.log(route)
   while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
     el = el.parentNode;
   }
@@ -156,15 +145,21 @@ function addRow(tableID,data=null) {
  let tBody = table.tBodies[0];
   tBody.insertBefore(newRow, tBody.lastChild);
 }
-
+// we need to change this function to be generic for the three sections
 function fillEditForm(el) {
-
+  let category_id=el.parentElement.parentElement.getElementsByTagName('td')[0].innerText
   while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
     el = el.parentNode;
   }
   if (el.parentNode && el.parentNode.rows.length > 0) {
     let sourceFillData = el.firstElementChild.nextElementSibling.innerText
     document.getElementById("categoryEditTF").value = sourceFillData
+    document.getElementById("editCategoryBtn").addEventListener("click",(evt)=>{
+        evt.preventDefault()
+        ///////////////////////////////
+        editCategories(category_id)
+        /////////////////////////////////
+    })
     // send the request to the server here 
   }
 }
@@ -173,6 +168,7 @@ function fillEditForm(el) {
 window.addEventListener("load", (evt) => {
   listCategories();
   listAuthors();
+  listBooks();
 })
 
 // list all rows in table
@@ -180,8 +176,59 @@ function listRows(response,table_id){
 JSON.parse(response).forEach(element => {
   let arr=[]
   for (x in element){
-    arr.push(element[x])
-  }
+
+    arr.push(element[x])}
+  
   addRow(table_id,arr)
 
 });}
+
+
+// request categories array and authors array from server
+function listAuthorsCategories() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response=JSON.parse(this.response)
+      fillMenues("newBookForm",response)
+      fillMenues("editBookForm",response)
+      // listRows(this.response,"booksTable")
+    }
+  };
+  xhttp.open("GET", "http://localhost:5000/admin/data");
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send()
+};
+// fill menues with response data
+function fillMenues(formID,response){
+  let newBookForm=document.getElementById(formID)
+  let categoriesMenu=newBookForm.getElementsByClassName("dropdown-menu")[0]
+  let authorsMenu=newBookForm.getElementsByClassName("dropdown-menu")[1]
+  categoriesMenu.innerHTML=""
+  authorsMenu.innerHTML=""
+  response.categories.forEach(elem => {
+  let categoryChoice=document.createElement("li")
+  categoryChoice.innerText=elem.name
+  categoryChoice.setAttribute("id",elem._id)
+  categoriesMenu.appendChild(categoryChoice)
+  })
+  response.authors.forEach(elem => {
+    let authorChoice=document.createElement("li")
+    authorChoice.innerText=elem.first_name+" "+elem.last_name
+    authorChoice.setAttribute("id",elem._id)
+    authorsMenu.appendChild(authorChoice)
+    })
+    $('.dropdown .dropdown-menu li').click(function () {
+      $(this).parents('.dropdown').find('span').text($(this).text());
+      $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+    });
+    /*End Dropdown Menu*/
+    
+    
+    $('.dropdown-menu li').click(function () {
+      var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+        msg = '<span class="msg">Hidden input value: ';
+      $('.msg').html(msg + input + '</span>');
+    });
+
+}

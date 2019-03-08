@@ -87,8 +87,7 @@ adminRouter.put('/books/:id', (req, res) => {
     bookModel.updateOne({ _id: req.params.id }, {
         name: new_req.name,
         category_id: new_req.category_id,
-        author_id: new_req.author_id,
-        rating: new_req.rating
+        author_id: new_req.author_id
     }, (err) => {
         if (!err)
             res.redirect("/admin/books")
