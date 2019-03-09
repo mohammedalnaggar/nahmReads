@@ -1,11 +1,13 @@
 const bookAddBtn = document.getElementById("addNewBookBtn");
+const bookEditBtn=document.getElementById("editBookBtn")
 bookAddBtn.addEventListener("click", function (evt) {
   evt.preventDefault()
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let response=JSON.parse(this.response)[JSON.parse(this.response).length-1]
-      let book_arr = [response._id,response.name.first_name+" "+response.name.last_name, response.category_id,response.author_id]
+      console.log(response.name)
+      let book_arr = [response._id,response.name, response.category_id,response.author_id]
       addRow(2,"booksTable",book_arr)
     }
   };
@@ -20,7 +22,8 @@ bookAddBtn.addEventListener("click", function (evt) {
 });
 
 
-function editBook(id){
+bookEditBtn.addEventListener("click",(evt)=>{
+  let id=document.getElementById("editBookID").value
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -36,7 +39,7 @@ function editBook(id){
     "author_id": document.getElementById("editAuthorChoice").value,
     "category_id": document.getElementById("editCategoryChoice").value
   }));
-}
+})
 
 function listBooks() {
   var xhttp = new XMLHttpRequest();

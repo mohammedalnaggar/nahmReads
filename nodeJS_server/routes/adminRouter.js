@@ -9,13 +9,10 @@ const adminRouter = express.Router()
 //validate admin data
 adminRouter.post('/', (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
-    console.log(newReq)
     adminModel.find({ email: newReq.email, password: newReq.password }, (err, data) => {
         if (err || data.length === 0) {
-            console.log(err)
             res.send(err);
         } else {
-            console.log(newReq.email)
             // console.log(data[0].tokens)
             //create token here.
             const data2 = {
@@ -35,8 +32,6 @@ adminRouter.post('/', (req, res) => {
                     if (err)
                         console.log(err)
                     else {
-                        console.log(data)
-                        console.log(token)
                         res.send(token)
                     }
                 });
@@ -115,7 +110,6 @@ adminRouter.get("/authors", (req, res) => {
 adminRouter.post("/authors",(req,res)=>{
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq=req.body
-    console.log(newReq)
     const author = new authorModel({first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
     author.save((err,data)=>{
         if(!err)res.redirect("/admin/authors");
@@ -146,7 +140,6 @@ adminRouter.get('/authors/:id/delete', function (req, res) {
 adminRouter.get("/categories", (req, res) => {
     categoryModel.find({}, (err, data) => {
         if (!err)
-        console.log(data)
         res.send(data);
     });
 });
@@ -156,7 +149,6 @@ adminRouter.get("/categories", (req, res) => {
 adminRouter.post("/categories",(req,res)=>{
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq=req.body
-    console.log(newReq)
     const category = new categoryModel({name:newReq.name});
     category.save((err,data)=>{
         if(!err)res.redirect("/admin/categories");
@@ -174,7 +166,6 @@ adminRouter.post("/categories/:id/update", (req, res) => {
 });
 //delete category
 adminRouter.get('/categories/:id/delete', function (req, res) {
-    console.log(req.body)
     categoryModel.findOneAndDelete({ _id: req.params.id }, (err) => {
         if (!err)
             res.redirect("/admin/categories")

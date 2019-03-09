@@ -1,6 +1,6 @@
 var fun_ret;
 const authorAddBtn = document.getElementById("addNewAuthorBtn");
-const editAuthorBtn=document.getElementById("editCategoryBtn");
+const editAuthorBtn=document.getElementById("editAuthorBtn");
 
 authorAddBtn.addEventListener("click", function (evt) {
   evt.preventDefault()
@@ -24,7 +24,8 @@ authorAddBtn.addEventListener("click", function (evt) {
 });
 
 
-function editAuthor(id){
+editAuthorBtn.addEventListener("click",(evt)=>{
+  let id= document.getElementById("editAuthorId").value
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -33,14 +34,14 @@ function editAuthor(id){
       // addRow("authorsTable",author_arr)
     }
   };
-  xhttp.open("POST", `http://localhost:5000/admin//${id}/edit`);
+  xhttp.open("POST", `http://localhost:5000/admin/authors/${id}/edit`);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(JSON.stringify({
-    "first_name": document.getElementById("newAuthorFName").value,
-    "last_name": document.getElementById("newAuthorLName").value,
-    "birth_date": document.getElementById("newAuthorDOB").value
+    "first_name": document.getElementById("editAuthorFName").value,
+    "last_name": document.getElementById("editAuthorLName").value,
+    "birth_date": document.getElementById("editAuthorDOB").value
   }));
-}
+})
 
 
 function listAuthors() {

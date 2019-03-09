@@ -47,15 +47,21 @@ function openEditForm(x, el) {
   if (x === 1) {
     document.getElementById("editCategoryForm").style.display = "block";
     console.log('from open edit form')
-    console.log(el)
     fillEditForm(el);
   }
   if (x === 2) {
-    document.getElementById("editBookForm").style.display = "block";
+
+    let editForm=document.getElementById("editBookForm");
+    editForm.style.display = "block"
+    document.getElementById("editBookName").value=el.parentElement.parentElement.getElementsByTagName("td")[2].innerText
+    document.getElementById("editBookID").value=el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
     // fillEditForm(el);
   }
   if (x === 3) {
     document.getElementById("editAuthorForm").style.display = "block";
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    console.log(el.parentElement.parentElement.getElementsByTagName("td")[0].innerText)
+    document.getElementById("editAuthorId").value=el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
     fillAuthorEditForm(el);
   }
 
@@ -149,6 +155,7 @@ function addRow(formNum, tableID, data = null) {
 
       // put your object attributes here
       inputs[i].innerText = data[i]
+      console.log(data[i])
     }
   }
   // Add the new row to the tBody (required for IE)

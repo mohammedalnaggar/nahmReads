@@ -168,6 +168,7 @@
                                 <label>
                                     Book Name<span class="req">*</span>
                                 </label>
+                                <input id="editBookID" type="text" style="display:none"/>
                                 <input id="editBookName" type="text" required autocomplete="off" style="width:100%" />
                             </div>
 
@@ -203,7 +204,7 @@
                             </div>
 
                             <div class="field-wrap" style="margin-top:50px">
-                                <button id="addNewBookBtn" type="submit" class="button" style="padding: 10px"> Submit</button>
+                                <button id="editBookBtn" type="submit" class="button" style="padding: 10px"> Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeEditForm(2)">Close</button>
                             </div>
 
@@ -275,13 +276,14 @@
 
                         </form>
                     </div> <!-- new author popup div end -->
-
+                    <input id="editAuthorId" type="text" style="display:none" />
                     <div class="form-popup" id="editAuthorForm"> <!-- edit author popup div start -->
                         <form class="form-container">
                             <h1> Edit an existing Author</h1>
-
+                            
                             <div class="upload-btn-wrapper">
                                 <button class="btn" aria-required="true">Upload new image</button>
+                                
                                 <input type="file" name="newAuthorImage" required />
                             </div>
 
@@ -295,6 +297,7 @@
                                 <label>
                                     Last Name<span class="req">*</span>
                                 </label>
+        
                                 <input id="editAuthorLName" type="text" required autocomplete="off" style="width:100%" />
                             </div>
 
@@ -307,7 +310,7 @@
                             </div>
 
                             <div class="field-wrap" style="margin-top:50px">
-                                <button id="editAuthorBtn" type="submit" class="button" onclick="editRow('authorsTable')" style="padding: 10px"> Submit</button>
+                                <button id="editAuthorBtn" type="submit" class="button"  style="padding: 10px"> Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeEditForm(3)">Close</button>
                             </div>
 
