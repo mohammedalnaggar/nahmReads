@@ -95,7 +95,7 @@ adminRouter.put('/books/:id', (req, res) => {
     })
 })
 // delete book
-adminRouter.delete('/books/:id', function (req, res) {
+adminRouter.get('/books/:id/delete', function (req, res) {
     bookModel.findOneAndDelete({ _id: req.params.id }, (err) => {
         if (!err) {
             res.redirect("/admin/books");
@@ -133,7 +133,7 @@ adminRouter.put("/authors/:id", (req, res) => {
         });
 });
 //delete author
-adminRouter.delete('/authors/:id', function (req, res) {
+adminRouter.get('/authors/:id/delete', function (req, res) {
     authorModel.findOneAndDelete({ _id: req.params.id }, (err) => {
         if (!err) {
             res.redirect("/admin/authors");
@@ -147,7 +147,7 @@ adminRouter.delete('/authors/:id', function (req, res) {
 adminRouter.get("/categories", (req, res) => {
     categoryModel.find({}, (err, data) => {
         if (!err)
-        
+        console.log(data)
         res.send(data);
     });
 });
@@ -165,7 +165,7 @@ adminRouter.post("/categories",(req,res)=>{
 });
 
 //edit category
-adminRouter.put("/categories/:id", (req, res) => {
+adminRouter.post("/categories/:id/update", (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq = req.body
     categoryModel.updateOne({ _id: req.params.id }, { name: newReq.name }, (err) => {
@@ -174,7 +174,7 @@ adminRouter.put("/categories/:id", (req, res) => {
     });
 });
 //delete category
-adminRouter.delete('/categories/:id', function (req, res) {
+adminRouter.get('/categories/:id/delete', function (req, res) {
     console.log(req.body)
     categoryModel.findOneAndDelete({ _id: req.params.id }, (err) => {
         if (!err)
