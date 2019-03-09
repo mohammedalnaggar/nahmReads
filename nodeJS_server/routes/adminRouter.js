@@ -81,14 +81,13 @@ adminRouter.post('/books', (req, res) => {
 
 })
 //edit book
-adminRouter.put('/books/:id', (req, res) => {
+adminRouter.post('/books/:id/edit', (req, res) => {
     let new_req = JSON.parse(Object.keys(req.body)[0])
     // let new_req = req.body
     bookModel.updateOne({ _id: req.params.id }, {
         name: new_req.name,
         category_id: new_req.category_id,
-        author_id: new_req.author_id,
-        rating: new_req.rating
+        author_id: new_req.author_id
     }, (err) => {
         if (!err)
             res.redirect("/admin/books")
@@ -123,7 +122,7 @@ adminRouter.post("/authors",(req,res)=>{
 });
 });
 //edit author
-adminRouter.put("/authors/:id", (req, res) => {
+adminRouter.post("/authors/:id/edit", (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq = req.body
     authorModel.updateOne({ _id: req.params.id }, { first_name: newReq.first_name, last_name: newReq.last_name, birth_date: newReq.birth_date }

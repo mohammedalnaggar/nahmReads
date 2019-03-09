@@ -30,18 +30,7 @@ $('.dropdown').focusout(function () {
   $(this).removeClass('active');
   $(this).find('.dropdown-menu').slideUp(300);
 });
-$('.dropdown .dropdown-menu li').click(function () {
-  $(this).parents('.dropdown').find('span').text($(this).text());
-  $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-});
-/*End Dropdown Menu*/
 
-
-$('.dropdown-menu li').click(function () {
-  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-    msg = '<span class="msg">Hidden input value: ';
-  $('.msg').html(msg + input + '</span>');
-});
 
 // common functions in three tabs (to add & remove & edit tables && manipulating forms)
 function openAddForm(x) {
@@ -167,7 +156,7 @@ function addRow(formNum, tableID, data = null) {
   tBody.insertBefore(newRow, tBody.lastChild);
   closeAddForm(formNum)
 }
-
+// we need to change this function to be generic for the three sections
 function fillEditForm(el) {
   let category_id=el.parentElement.parentElement.getElementsByTagName('td')[0].innerText
   let rowToEdit = el.parentElement.parentElement
@@ -181,11 +170,10 @@ function fillEditForm(el) {
         // evt.preventDefault()
 
         ///////////////////////////////
-        editCategories(rowToEdit, category_id)
+        editCategories(category_id)
         /////////////////////////////////
     })
     // send the request to the server here 
-  
 }
 
 
@@ -193,20 +181,67 @@ function fillEditForm(el) {
 window.addEventListener("load", (evt) => {
   listCategories();
   listAuthors();
+  listBooks();
 })
 
 // list all rows in table
-function listRows(response, table_id) {
-  JSON.parse(response).forEach(element => {
-    let arr = []
-    for (x in element) {
-      arr.push(element[x])
+function listRows(response,table_id){
+JSON.parse(response).forEach(element => {
+  let arr=[]
+  for (x in element){
+
+    arr.push(element[x])}
+  
+  addRow(1,table_id,arr)
+
+});}
+
+
+// request categories array and authors array from server
+function listAuthorsCategories() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response=JSON.parse(this.response)
+      fillMenues("newBookForm",response)
+      fillMenues("editBookForm",response)
+      // listRows(this.response,"booksTable")
     }
-    if (table_id === "categoriesTable")
-      addRow(1,table_id, arr)
-    else if(table_id === "booksTable")
-      addRow(2,table_id, arr)
-    else 
-      addRow(3,table_id, arr)
-  });
+  };
+  xhttp.open("GET", "http://localhost:5000/admin/data");
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send()
+};
+// fill menues with response data
+function fillMenues(formID,response){
+  let newBookForm=document.getElementById(formID)
+  let categoriesMenu=newBookForm.getElementsByClassName("dropdown-menu")[0]
+  let authorsMenu=newBookForm.getElementsByClassName("dropdown-menu")[1]
+  categoriesMenu.innerHTML=""
+  authorsMenu.innerHTML=""
+  response.categories.forEach(elem => {
+  let categoryChoice=document.createElement("li")
+  categoryChoice.innerText=elem.name
+  categoryChoice.setAttribute("id",elem._id)
+  categoriesMenu.appendChild(categoryChoice)
+  })
+  response.authors.forEach(elem => {
+    let authorChoice=document.createElement("li")
+    authorChoice.innerText=elem.first_name+" "+elem.last_name
+    authorChoice.setAttribute("id",elem._id)
+    authorsMenu.appendChild(authorChoice)
+    })
+    $('.dropdown .dropdown-menu li').click(function () {
+      $(this).parents('.dropdown').find('span').text($(this).text());
+      $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+    });
+    /*End Dropdown Menu*/
+    
+    
+    $('.dropdown-menu li').click(function () {
+      var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+        msg = '<span class="msg">Hidden input value: ';
+      $('.msg').html(msg + input + '</span>');
+    });
+
 }
