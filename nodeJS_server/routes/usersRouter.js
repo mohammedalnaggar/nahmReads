@@ -1,7 +1,7 @@
 const express = require('express')
 const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
-
+const send_mail=require("../connection/mail")
 const usersRouter = express.Router()
 
 
@@ -52,6 +52,8 @@ usersRouter.post('/', (req, res) => {
                             message: "auth",
                             token
                         })
+                        console.log("hiiiiiiii")
+                        send_mail(new_req.email)
                     }
                 })
             } else {
