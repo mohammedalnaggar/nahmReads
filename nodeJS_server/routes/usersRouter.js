@@ -1,6 +1,8 @@
-const express = require('express')
 const userModel = require('../models/userModel')
+const authorModel = require('../models/authorModel')
+const bookModel = require('../models/bookModel')
 const jwt = require('jsonwebtoken')
+const express = require('express')
 
 const usersRouter = express.Router()
 
@@ -10,12 +12,14 @@ usersRouter.post('/', (req, res) => {
     new_req = JSON.parse(Object.keys(req.body)[0])
     console.log(new_req)
     // check if the email already exists
-    userModel.find({email: new_req.email} , (err, data) => {
-        if(!err){
-            if(!data[0]){
+    userModel.find({
+        email: new_req.email
+    }, (err, data) => {
+        if (!err) {
+            if (!data[0]) {
                 // register newuser
                 console.log(new_req)
-            
+
                 // create a token
                 const data = {
                     check: true
@@ -40,14 +44,15 @@ usersRouter.post('/', (req, res) => {
                 }
                 console.log(new_user)
 
-                userModel.create( new_user , (err , data) => {
-                    if(err){
+                userModel.create(new_user, (err, data) => {
+                    if (err) {
                         // as long as all fields will not be null from client side >> check mail only not
                         // existing
                         res.send(err)
-                        res.json({ message: "Email already exists .. from create!" })
-                    }
-                    else {
+                        res.json({
+                            message: "Email already exists .. from create!"
+                        })
+                    } else {
                         res.send({
                             message: "auth",
                             token
@@ -55,9 +60,11 @@ usersRouter.post('/', (req, res) => {
                     }
                 })
             } else {
-                res.json({ message: "Invalid email!" })
+                res.json({
+                    message: "Invalid email!"
+                })
             }
-        } else{
+        } else {
             res.send(err);
         }
     })
@@ -68,9 +75,12 @@ usersRouter.post('/login', (req, res, next) => {
     new_req = JSON.parse(Object.keys(req.body)[0])
 
     console.log(new_req)
-    userModel.find({email: new_req.email , password : new_req.password} , (err, data) =>{
-        if(!err){
-            if(data[0]){
+    userModel.find({
+        email: new_req.email,
+        password: new_req.password
+    }, (err, data) => {
+        if (!err) {
+            if (data[0]) {
                 // create a new token for logged in user
                 const data2 = {
                     check: true
@@ -81,17 +91,21 @@ usersRouter.post('/login', (req, res, next) => {
                     })
                 }
                 let new_tokens = []
-                data[0].tokens.forEach(function (e){ 
+                data[0].tokens.forEach(function (e) {
                     new_tokens.push(e);
                 })
-                                
+
                 new_tokens.push(token)
                 console.log(new_tokens)
 
-                userModel.updateOne({email: new_req.email}, {$set: {
-                    tokens: new_tokens
-                }}, (err, data) => {
-                    if(!err){
+                userModel.updateOne({
+                    email: new_req.email
+                }, {
+                    $set: {
+                        tokens: new_tokens
+                    }
+                }, (err, data) => {
+                    if (!err) {
                         console.log()
                         // send the new token to the client
                         res.send({
@@ -101,9 +115,9 @@ usersRouter.post('/login', (req, res, next) => {
                     } else {
                         res.send(err)
                     }
-                } )
-                
-            }else {
+                })
+
+            } else {
                 res.send('No match for this id')
             }
         } else {
@@ -111,6 +125,59 @@ usersRouter.post('/login', (req, res, next) => {
         }
     })
 })
+
+//information and data for Author page
+usersRouter.get("/:idU/:idA", (req, res) => {
+    const data_object = {
+        author: null,
+        authorbooks: null
+    }
+    authorModel.findOne({
+            _id: req.params.idA
+        })
+        .then((data) =>
+         {
+            data_object.author = data
+        })
+    const authorbooks = null
+    bookModel.find({
+        author_id: req.params.idA
+    }, function (err, data)
+     {
+        if (!err)
+            authorbooks = data
+    }
+    )
+    const userbooks = null
+    userModel.findOne(
+        {
+        _id: req.params.idU
+    }, function (err, data) 
+    {
+        if (!err)
+            userbooks = data.books
+    }
+    )
+
+    authorbooks.forEach(function (authorbook) {
+        userbooks.forEach(function (userbook) {
+            if (authorbook._id === userbook.book_id) {
+                authorbook.status = userbook.status
+                authorbook.user_rating = userbook.user_rating
+            }
+
+        }
+        )
+
+    }
+    ).then(() => 
+    {
+        data_object.authorbooks = authorbooks
+        res.send(data_object)
+    }
+    )
+}
+)
 
 
 

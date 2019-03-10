@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 
-const userSchema = new mongoose.Schema ({
-    name:{
+const userSchema = new mongoose.Schema({
+    name: {
         first_name: {
             type: "string",
             required: true,
         },
-        last_name:{
+        last_name: {
             type: "string",
             required: true,
         }
@@ -22,17 +22,26 @@ const userSchema = new mongoose.Schema ({
         }
     },
     password: {
-        type: "string", 
+        type: "string",
         required: true,
         minlength: 8
-    }, 
-    image:{
+    },
+    image: {
         type: "string"
     },
     tokens: [{
         token: {
             type: "string",
             required: true
+        }
+    }],
+    books: [{
+        book_id: "string",
+        status: "string",
+        user_rating: {
+            type: Number,
+            min: 0,
+            max: 5
         }
     }]
 })
