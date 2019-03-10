@@ -1,6 +1,6 @@
 var fun_ret;
 const authorAddBtn = document.getElementById("addNewAuthorBtn");
-const editAuthorBtn=document.getElementById("editCategoryBtn");
+const editAuthorBtn=document.getElementById("editAuthorBtn");
 
 authorAddBtn.addEventListener("click", function (evt) {
   evt.preventDefault()
@@ -25,6 +25,7 @@ authorAddBtn.addEventListener("click", function (evt) {
 
 
 function editAuthor(id){
+  console.log('id from editAuthor'+ id)
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -33,7 +34,7 @@ function editAuthor(id){
       // addRow("authorsTable",author_arr)
     }
   };
-  xhttp.open("POST", `http://localhost:5000/admin//${id}/edit`);
+  xhttp.open("POST", `http://localhost:5000/admin/authors/${id}/edit`);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(JSON.stringify({
     "first_name": document.getElementById("newAuthorFName").value,
@@ -56,6 +57,9 @@ function listAuthors() {
 };
 
 function fillAuthorEditForm(el) {
+  console.log(el)
+  console.log(el.parentElement.parentElement.firstElementChild.innerText)
+  let authorID = el.parentElement.parentElement.firstElementChild.innerText
   let form = document.getElementById("editAuthorForm")
   let inputsTF = form.getElementsByTagName("input")
   //>> array feha 4 7agat image  > Img - Fname - Lname - DOB
@@ -70,6 +74,12 @@ function fillAuthorEditForm(el) {
     } else{ 
       inputsTF[i].value = sourceRowData[i].innerText
   }}
+
+  editAuthorBtn.addEventListener('click', (ev)=>{
+    // ev.preventDefault();
+    editAuthor(authorID)
+
+  })
 }
 
 
