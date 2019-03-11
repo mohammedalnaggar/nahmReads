@@ -115,6 +115,4 @@ usersRouter.post('/login', (req, res, next) => {
 })
 
 
-
-
 module.exports = usersRouter

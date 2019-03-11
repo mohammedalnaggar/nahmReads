@@ -11,7 +11,7 @@ var transporter = nodemailer.createTransport({
 
    const mailOptions = {
     from: 'nahm.reads@gmail.com', // sender address
-    to: email, // list of receivers
+    to: "dinag707@gmail.com", // list of receivers
     subject: 'welcome to nahm reads', // Subject line
     html: 'thank you for registering in nahm reads'
   };
