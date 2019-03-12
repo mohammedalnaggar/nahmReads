@@ -8,7 +8,7 @@
                     console.log(this.response);
                   }
                 };
-                xhttp.open("POST", "http://192.168.1.90:5000/admin");
+                xhttp.open("POST", "http://127.0.0.1:5000/admin");
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send(JSON.stringify(
                     {

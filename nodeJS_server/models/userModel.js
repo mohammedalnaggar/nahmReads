@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
         }
     }],
     books: [{
-        book_id: "string",
+        book_id: {type:"string",ref:'book'},
         status: "string",
         user_rating: {
             type: Number,

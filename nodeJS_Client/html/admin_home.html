@@ -26,7 +26,7 @@
                 <h1>Welcome to Categories!</h1>
                 <form>
 
-                    <table id="categoriesTable" class="field-wrap">
+                    <table id="categoriesTable" class="field-wrap" style="width:100%">
 
                         <th class="cell" style="width: 200px;"> ID </th>
                         <th class="cell" style="width: 900px;"> Name </th>
@@ -55,7 +55,7 @@
                             </div>
 
                             <div class="field-wrap">
-                                <button id="addNewCategoryBtn" type="submit" class="button" onclick="addRow('categoriesTable')" style="padding: 10px">
+                                <button id="addNewCategoryBtn" type="submit" class="button" style="padding: 10px">
                                     Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeAddForm(1)">Close</button>
                             </div>
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="field-wrap">
-                                <button id="editCategoryBtn" type="submit" class="button"  style="padding: 10px">
+                                <button id="editCategoryBtn" type="submit" class="button" style="padding: 10px">
                                     Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeEditForm(1)">Close</button>
                             </div>
@@ -87,7 +87,7 @@
             <div id="books">
                 <h1>Welcome to Books!</h1>
                 <form>
-                    <table id="booksTable" class="field-wrap">
+                    <table id="booksTable" class="field-wrap" style="width:100%">
                         <th class="cell" style="width:50px"> ID </th>
                         <th class="cell"> Photo </th>
                         <th class="cell"> Name </th>
@@ -96,14 +96,14 @@
                         <th class="cell"> Actions </th>
 
                         <tr id="booksFirstRow">
-                            <td> 1</td>
-                            <td> photo</td>
-                            <td> Eslam Salah</td>
-                            <td> catID</td>
-                            <td> AuthID</td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
                             <td>
-                                <img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%">
-                                <img src="../images/icons/edit.png" onclick="openEditForm(2,this)" style="width:48px">
+                                <!-- <img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%">
+                                <img src="../images/icons/edit.png" onclick="openEditForm(2,this)" style="width:48px"> -->
                             </td>
                         </tr>
                     </table>
@@ -153,7 +153,7 @@
                             </div>
 
                             <div class="field-wrap" style="margin-top:50px">
-                                <button id="addNewBookBtn" type="submit" class="button" onclick="addRow('booksTable')" style="padding: 10px"> Submit</button>
+                                <button id="addNewBookBtn" type="submit" class="button" style="padding: 10px"> Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeAddForm(2)">Close</button>
                             </div>
 
@@ -168,6 +168,7 @@
                                 <label>
                                     Book Name<span class="req">*</span>
                                 </label>
+                                <input id="editBookID" type="text" style="display:none"/>
                                 <input id="editBookName" type="text" required autocomplete="off" style="width:100%" />
                             </div>
 
@@ -203,7 +204,7 @@
                             </div>
 
                             <div class="field-wrap" style="margin-top:50px">
-                                <button id="addNewBookBtn" type="submit" class="button" onclick="addRow('booksTable')" style="padding: 10px"> Submit</button>
+                                <button id="editBookBtn" type="submit" class="button" style="padding: 10px"> Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeEditForm(2)">Close</button>
                             </div>
 
@@ -216,7 +217,7 @@
             <div id="authors">
                 <h1>Welcome to Authors!</h1>
                 <form>
-                    <table id="authorsTable" class="field-wrap">
+                    <table id="authorsTable" class="field-wrap" style="width:100%">
                         <th class="cell" style="width: 50px;"> ID </th>
                         <th class="cell"> Photo </th>
                         <th class="cell"> First Name </th>
@@ -230,8 +231,8 @@
                             <td> </td>
                             <td> </td>
                             <td>
-                                <img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%">
-                                <img src="../images/icons/edit.png" onclick="openEditForm(3, this)" style="width:48px">
+                                <!-- <img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%">
+                                <img src="../images/icons/edit.png" onclick="openEditForm(3, this)" style="width:48px"> -->
                             </td>
                         </tr>
                     </table>
@@ -269,19 +270,20 @@
                             </div>
 
                             <div class="field-wrap" style="margin-top:50px">
-                                <button id="addNewAuthorBtn" type="submit" class="button" onclick="addRow('authorsTable')" style="padding: 10px"> Submit</button>
+                                <button id="addNewAuthorBtn" type="submit" class="button" style="padding: 10px"> Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeAddForm(3)">Close</button>
                             </div>
 
                         </form>
                     </div> <!-- new author popup div end -->
-
+                    <input id="editAuthorId" type="text" style="display:none" />
                     <div class="form-popup" id="editAuthorForm"> <!-- edit author popup div start -->
                         <form class="form-container">
                             <h1> Edit an existing Author</h1>
-
+                            
                             <div class="upload-btn-wrapper">
                                 <button class="btn" aria-required="true">Upload new image</button>
+                                
                                 <input type="file" name="newAuthorImage" required />
                             </div>
 
@@ -295,6 +297,7 @@
                                 <label>
                                     Last Name<span class="req">*</span>
                                 </label>
+        
                                 <input id="editAuthorLName" type="text" required autocomplete="off" style="width:100%" />
                             </div>
 
@@ -307,7 +310,7 @@
                             </div>
 
                             <div class="field-wrap" style="margin-top:50px">
-                                <button id="editAuthorBtn" type="submit" class="button" onclick="editRow('authorsTable')" style="padding: 10px"> Submit</button>
+                                <button id="editAuthorBtn" type="submit" class="button"  style="padding: 10px"> Submit</button>
                                 <button type="button" class="cancel" style="padding: 10px" onclick="closeEditForm(3)">Close</button>
                             </div>
 

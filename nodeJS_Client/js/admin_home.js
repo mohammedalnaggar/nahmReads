@@ -43,18 +43,26 @@ function openAddForm(x) {
 }
 
 function openEditForm(x, el) {
-  const route = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
+  // const route = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
   if (x === 1) {
     document.getElementById("editCategoryForm").style.display = "block";
+    console.log('from open edit form')
     fillEditForm(el);
   }
   if (x === 2) {
-    document.getElementById("editBookForm").style.display = "block";
+
+    let editForm=document.getElementById("editBookForm");
+    editForm.style.display = "block"
+    document.getElementById("editBookName").value=el.parentElement.parentElement.getElementsByTagName("td")[2].innerText
+    document.getElementById("editBookID").value=el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
     // fillEditForm(el);
   }
   if (x === 3) {
     document.getElementById("editAuthorForm").style.display = "block";
-    // fillEditForm(el);
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    console.log(el.parentElement.parentElement.getElementsByTagName("td")[0].innerText)
+    document.getElementById("editAuthorId").value=el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
+    fillAuthorEditForm(el);
   }
 
 }
@@ -96,73 +104,85 @@ function deleteRow(el) {
         console.log(this.response);
       }
     };
-    xhttp.open("DELETE", `http://127.0.0.1:5000/admin/${route}/${idToDelete}`);
+    xhttp.open("GET", `http://127.0.0.1:5000/admin/${route}/${idToDelete}/delete`);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send();
     el.parentNode.removeChild(el);
   }
 }
 
+// naggar and anas last version from editRow << has an error
+// function editRow( rowToEdit , newarr= null) {
+//   console.log("from edit row func")
+//   console.log(rowToEdit)
 
-function editRow(el){
-  // while there are parents, keep going until reach tr
-  const route = el.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
-  console.log(route)
-  while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
-    el = el.parentNode;
-  }
-  if (el.parentNode && el.parentNode.rows.length > 0) {
+//   let inputs = rowToEdit.getElementsByTagName('td');
+//   console.log('...........')
+//   console.log('tds arr from table')
+//   console.log(inputs)
+//   console.log('new arr  from edit form')
+//   console.log(newarr)  ;console.log('...........')
 
-    el.firstElementChild.innerText = document.getElementById("categoryEditTF").value 
-    // send the request to the server here 
-    console.log(el.firstElementChild.innerText)
+//   for (let i = 0, iLen = inputs.length; i < iLen-1; i++) {
 
-  }
-}
-function addRow(tableID,data=null) {
+//       inputs[i].innerText = newarr[i]
+//   }
+// }
+
+function addRow(formNum, tableID, data = null) {
   let table = document.getElementById(tableID);
   const route = table.parentElement.parentElement.getAttribute("id")
   if (!table) return;
-  document.getElementById(route+"FirstRow").style.display="none"
+  document.getElementById(route + "FirstRow").style.display = "none"
   let newRow = table.rows[1].cloneNode(true);
-  newRow.style.display="table-row"
+  newRow.style.display = "table-row"
   // Now get the inputs and modify their names 
   let inputs = newRow.getElementsByTagName('td');
+  console.log(111)
+  for (let i = 0, iLen = inputs.length; i < iLen; i++) {
+    // Update inputs[i]
     
-    for (let i = 0, iLen = inputs.length; i < iLen; i++) {
-      // Update inputs[i]
 
     if (i === inputs.length - 1) {
-      inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(1, this)" style="width:48px">'
-    } else {
+      if (tableID === "categoriesTable")
+         inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(1, this)" style="width:48px">'
+      if (tableID === "booksTable")
+         inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(2, this)" style="width:48px">'
+      if (tableID === "authorsTable")
+          inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(3, this)" style="width:48px">'
+
+      } else {
 
       // put your object attributes here
       inputs[i].innerText = data[i]
+      console.log(data[i])
     }
   }
-
   // Add the new row to the tBody (required for IE)
- let tBody = table.tBodies[0];
+  let tBody = table.tBodies[0];
   tBody.insertBefore(newRow, tBody.lastChild);
+  closeAddForm(formNum)
 }
 // we need to change this function to be generic for the three sections
 function fillEditForm(el) {
   let category_id=el.parentElement.parentElement.getElementsByTagName('td')[0].innerText
-  while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
-    el = el.parentNode;
-  }
-  if (el.parentNode && el.parentNode.rows.length > 0) {
-    let sourceFillData = el.firstElementChild.nextElementSibling.innerText
+  let rowToEdit = el.parentElement.parentElement
+  console.log('from fill edit form')
+  console.log(rowToEdit)
+  console.log(category_id +'from fillEditForm')
+
+    let sourceFillData = rowToEdit.firstElementChild.nextElementSibling.innerText
     document.getElementById("categoryEditTF").value = sourceFillData
     document.getElementById("editCategoryBtn").addEventListener("click",(evt)=>{
-        evt.preventDefault()
+        // evt.preventDefault()
+
         ///////////////////////////////
         editCategories(category_id)
         /////////////////////////////////
     })
     // send the request to the server here 
-  }
 }
+
 
 // onload section
 window.addEventListener("load", (evt) => {
@@ -179,7 +199,7 @@ JSON.parse(response).forEach(element => {
 
     arr.push(element[x])}
   
-  addRow(table_id,arr)
+  addRow(1,table_id,arr)
 
 });}
 
@@ -195,7 +215,7 @@ function listAuthorsCategories() {
       // listRows(this.response,"booksTable")
     }
   };
-  xhttp.open("GET", "http://localhost:5000/admin/data");
+  xhttp.open("GET", "http://127.0.0.1:5000/admin/data");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send()
 };

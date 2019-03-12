@@ -8,6 +8,7 @@ const app = express();
 
 const usersRouter = require('./routes/usersRouter')
 const adminRouter = require('./routes/adminRouter')
+const authorsRouter = require('./routes/authorsRouter')
 
 app.use(express.urlencoded());
 app.use(express.json())
@@ -24,6 +25,7 @@ app.use('/users', usersRouter)
 
 // admin route handler
 app.use('/admin', adminRouter)
+app.use('/authors', authorsRouter)
 
 
 app.listen(PORT,"0.0.0.0", () => {

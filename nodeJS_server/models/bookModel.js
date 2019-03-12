@@ -7,7 +7,8 @@ const bookSchema = new mongoose.Schema ({
     },
     author_id: {
         type: "string", 
-        required: true
+        required: true,
+        ref: 'author'
     }, 
     category_id:{
         type: "string",
