@@ -36,7 +36,8 @@ usersRouter.post('/', (req, res) => {
                     password: new_req.password,
                     tokens: [
                         token
-                    ]
+                    ],
+                    books:[]
                 }
                 console.log(new_user)
 
@@ -52,7 +53,6 @@ usersRouter.post('/', (req, res) => {
                             message: "auth",
                             token
                         })
-                        console.log("hiiiiiiii")
                         send_mail(new_req.email)
                     }
                 })
