@@ -8,6 +8,8 @@ const app = express();
 
 const usersRouter = require('./routes/usersRouter')
 const adminRouter = require('./routes/adminRouter')
+const authorsRouter = require('./routes/authorsRouter')
+const booksRouter = require('./routes/booksRouter')
 
 app.use(express.urlencoded());
 app.use(express.json())
@@ -24,9 +26,10 @@ app.use('/users', usersRouter)
 
 // admin route handler
 app.use('/admin', adminRouter)
+app.use('/authors', authorsRouter)
 
-// app.use('/users/:id', authintcationRouter)
-
+// books route handler
+app.use('/books', booksRouter)
 
 app.listen(PORT,"0.0.0.0", () => {
     console.log(`Listening on port: ${PORT}`)

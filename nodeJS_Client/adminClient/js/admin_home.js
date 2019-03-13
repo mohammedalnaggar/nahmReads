@@ -237,7 +237,7 @@ function listAuthorsCategories() {
       // listRows(this.response,"booksTable")
     }
   };
-  xhttp.open("GET", "http://localhost:5000/admin/data");
+  xhttp.open("GET", "http://127.0.0.1:5000/admin/data");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send()
 };

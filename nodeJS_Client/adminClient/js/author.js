@@ -14,7 +14,7 @@ authorAddBtn.addEventListener("click", function (evt) {
 
     }
   };
-  xhttp.open("POST", "http://localhost:5000/admin/authors");
+  xhttp.open("POST", "http://127.0.0.1:5000/admin/authors");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(JSON.stringify({
     "first_name": document.getElementById("newAuthorFName").value,
@@ -34,7 +34,7 @@ editAuthorBtn.addEventListener("click",(evt)=>{
       // addRow("authorsTable",author_arr)
     }
   };
-  xhttp.open("POST", `http://localhost:5000/admin/authors/${id}/edit`);
+  xhttp.open("POST", `http://127.0.0.1:5000/admin/authors/${id}/edit`);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(JSON.stringify({
     "first_name": document.getElementById("editAuthorFName").value,
@@ -51,7 +51,7 @@ function listAuthors() {
       listRows(this.response, "authorsTable")
     }
   };
-  xhttp.open("GET", "http://localhost:5000/admin/authors");
+  xhttp.open("GET", "http://127.0.0.1:5000/admin/authors");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send()
 };
