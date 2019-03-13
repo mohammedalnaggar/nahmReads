@@ -1,6 +1,7 @@
 const express = require('express')
 const bookModel = require('../models/bookModel')
 const userModel = require('../models/userModel')
+const commentModel = require('../models/commentModel')
 const booksRouter = express.Router()
 ///////////////////////////////////////////////////////////////////////
 ///////////////////books page router//////////////////////////////////
@@ -91,6 +92,34 @@ booksRouter.post('/:id/shelve', (req, res) => {
                 })
         })
 
+})
+///////////////////////////////////////////////////////////////////////
+/////////////////////////////load book reviews//////////////////////////////
+booksRouter.get('/:id/comments', (req, res) => {
+    commentModel.find({book_id:req.params.id}).populate("user_id").select("user_id comment")
+    .then((data)=>{
+            res.send(data)
+    })
+})
+///////////////////////////////////////////////////////////////////////
+/////////////////////////////save book reviews//////////////////////////////
+booksRouter.post('/:id/comments', (req, res) => {
+    // let new_req = JSON.parse(Object.keys(req.body)[0])
+    let new_req=req.body
+    let new_comment = {
+        comment: new_req.comment,
+        user_id: new_req.user_id,
+        book_id: req.params.id
+    }
+
+    commentModel.create(new_comment, (err, data) => {
+        if (err) {
+            res.send(err)
+        }
+        else {
+            res.redirect(`/books/${req.params.id}/comments`)
+        }
+    })
 })
 
 module.exports = booksRouter
