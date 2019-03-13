@@ -8,7 +8,11 @@ const app = express();
 
 const usersRouter = require('./routes/usersRouter')
 const adminRouter = require('./routes/adminRouter')
+<<<<<<< HEAD
+const authorsRouter = require('./routes/authorsRouter')
+=======
 const booksRouter = require('./routes/booksRouter')
+>>>>>>> 26c63211e8ae31389d71d8e14c7060aa216640ae
 
 app.use(express.urlencoded());
 app.use(express.json())
@@ -25,6 +29,7 @@ app.use('/users', usersRouter)
 
 // admin route handler
 app.use('/admin', adminRouter)
+app.use('/authors', authorsRouter)
 
 // books route handler
 app.use('/books', booksRouter)

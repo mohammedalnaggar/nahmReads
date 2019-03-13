@@ -3,7 +3,7 @@ const authorModel = require('../models/authorModel')
 const bookModel = require('../models/bookModel')
 const jwt = require('jsonwebtoken')
 const send_mail=require("../connection/mail")
-const express = require('express')
+const express = require("express")
 const usersRouter = express.Router()
 
 
@@ -40,8 +40,7 @@ usersRouter.post('/', (req, res) => {
                     password: new_req.password,
                     tokens: [
                         token
-                    ],
-                    books:[]
+                    ]
                 }
                 console.log(new_user)
 
@@ -58,6 +57,7 @@ usersRouter.post('/', (req, res) => {
                             message: "auth",
                             token
                         })
+                        console.log("hiiiiiiii")
                         send_mail(new_req.email)
                     }
                 })
@@ -177,7 +177,6 @@ usersRouter.get("/:idU/:idA", (req, res) => {
         }
         )
 
-<<<<<<< HEAD
     }
     ).then(() => 
     {
@@ -196,6 +195,4 @@ usersRouter.get("/authors", (req, res) => {
     });
 });
 
-=======
->>>>>>> 26c63211e8ae31389d71d8e14c7060aa216640ae
 module.exports = usersRouter
