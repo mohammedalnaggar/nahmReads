@@ -1,11 +1,9 @@
-const mongoose = require('mongoose')
-const express = require('express')
 const userModel = require('../models/userModel')
-const bookModel = require('../models/bookModel')
 const authorModel = require('../models/authorModel')
-const categoryModel = require('../models/categoryModel')
+const bookModel = require('../models/bookModel')
 const jwt = require('jsonwebtoken')
-const send_mail = require("../connection/mail")
+const send_mail=require("../connection/mail")
+const express = require('express')
 const usersRouter = express.Router()
 ObjectId = require('mongodb').ObjectID;
 
@@ -14,7 +12,9 @@ usersRouter.post('/', (req, res) => {
     new_req = JSON.parse(Object.keys(req.body)[0])
     console.log(new_req)
     // check if the email already exists
-    userModel.find({ email: new_req.email }, (err, data) => {
+    userModel.find({
+        email: new_req.email
+    }, (err, data) => {
         if (!err) {
             if (!data[0]) {
                 // register newuser
@@ -40,7 +40,8 @@ usersRouter.post('/', (req, res) => {
                     password: new_req.password,
                     tokens: [
                         token
-                    ]
+                    ],
+                    books:[]
                 }
                 console.log(new_user)
 
@@ -49,19 +50,21 @@ usersRouter.post('/', (req, res) => {
                         // as long as all fields will not be null from client side >> check mail only not
                         // existing
                         res.send(err)
-                        res.json({ message: "Email already exists .. from create!" })
-                    }
-                    else {
+                        res.json({
+                            message: "Email already exists .. from create!"
+                        })
+                    } else {
                         res.send({
                             message: "auth",
                             token
                         })
-                        console.log("hiiiiiiii")
                         send_mail(new_req.email)
                     }
                 })
             } else {
-                res.json({ message: "Invalid email!" })
+                res.json({
+                    message: "Invalid email!"
+                })
             }
         } else {
             res.send(err);
@@ -74,7 +77,10 @@ usersRouter.post('/login', (req, res, next) => {
     new_req = JSON.parse(Object.keys(req.body)[0])
 
     console.log(new_req)
-    userModel.find({ email: new_req.email, password: new_req.password }, (err, data) => {
+    userModel.find({
+        email: new_req.email,
+        password: new_req.password
+    }, (err, data) => {
         if (!err) {
             if (data[0]) {
                 // create a new token for logged in user
@@ -94,7 +100,9 @@ usersRouter.post('/login', (req, res, next) => {
                 new_tokens.push(token)
                 console.log(new_tokens)
 
-                userModel.updateOne({ email: new_req.email }, {
+                userModel.updateOne({
+                    email: new_req.email
+                }, {
                     $set: {
                         tokens: new_tokens
                     }
@@ -120,49 +128,71 @@ usersRouter.post('/login', (req, res, next) => {
     })
 })
 
-//list categories
-usersRouter.get("/categories", (req, res) => {
-    categoryModel.find({}, (err, data) => {
+//information and data for Author page
+usersRouter.get("/:idU/:idA", (req, res) => {
+    const data_object = {
+        author: null,
+        authorbooks: null
+    }
+    authorModel.findOne({
+            _id: req.params.idA
+        })
+        .then((data) =>
+         {
+            data_object.author = data
+        })
+    const authorbooks = null
+    bookModel.find({
+        author_id: req.params.idA
+    }, function (err, data)
+     {
+        if (!err)
+            authorbooks = data
+    }
+    )
+    const userbooks = null
+    userModel.findOne(
+        {
+        _id: req.params.idU
+    }, function (err, data) 
+    {
+        if (!err)
+            userbooks = data.books
+    }
+    )
+
+    authorbooks.forEach(function (authorbook) {
+        userbooks.forEach(function (userbook) {
+            if (authorbook._id === userbook.book_id) {
+                authorbook.status = userbook.status
+                authorbook.user_rating = userbook.user_rating
+            }
+            else
+            {
+                authorbook.status = null
+                authorbook.user_rating = null
+
+            }
+
+        }
+        )
+
+    }
+    ).then(() => 
+    {
+        data_object.authorbooks = authorbooks
+        res.send(data_object)
+    }
+    )
+}
+)
+
+//list authors to user
+usersRouter.get("/authors", (req, res) => {
+    authorModel.find({}, (err, data) => {
         if (!err)
             res.send(data);
     });
 });
-
-//middleware for books and authors list of a specific category
-// usersRouter.get('/category/:id', function (req, res) {
-//     let data_object = { book: null, author: null }
-//     let books_authors4category = []
-//     bookModel.find({ category_id: req.params.id  }).then((books4category) => {
-//         books4category.forEach(function (element) {
-//             data_object.book = element;
-//             authorModel.find({_id:element.author_id }).then((author4book) => {
-//                 // console.log(author4book)
-//                 data_object.author = author4book[0];
-//                 // console.log(data_object);
-//             books_authors4category.push(data_object);
-//                 // console.log(books_authors4category)
-//                 // console.log(data_object.author)
-//             })
-//             // console.log("```````````````````````````````")
-
-//         });
-//     })
-//     res.send(books_authors4category);
-// })
-
-usersRouter.get('/category/:id', function (req, res) {
-    // data_object = { "book": null, "author": null }
-    // books_authors4category = []
-     bookModel.find({ category_id: req.params.id }, function (err, books4category) {
-    
-    }).populate('author_id').populate('category_id').exec(function (err, author_i) {
-        console.log(author_i)
-        // console.log(author_i[0].author_id.first_name)
-        res.send(author_i)  
-        
-    });
-   
-})
-
 
 module.exports = usersRouter

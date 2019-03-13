@@ -4,7 +4,8 @@ const categorySchema = new mongoose.Schema ({
     
     name: {
         type: "string",
-        required: true
+        required: true,
+        unique: true
     }
 })
 //post hook for delete
