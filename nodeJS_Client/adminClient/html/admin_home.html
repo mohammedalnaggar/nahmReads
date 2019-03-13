@@ -7,10 +7,32 @@
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="../css/admin_home.css">
+    <link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
+
+    <!-- for the header -->
+    <link rel="stylesheet" href="../css/assets/demo.css">
+	<link rel="stylesheet" href="../css/assets/header-basic-light.css">
+    <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+    
+    <!-- modal pakacge importer -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
 <body>
+
+    <header class="header-basic-light">
+
+        <div class="header-limiter">
+    
+            <h1><a href="#">Nahm<span>Reads</span></a></h1>
+    
+            <nav>
+                <a href="#" class="selected">Log out</a>
+            </nav>
+        </div>
+    
+    </header>
 
     <div class="form">
 
@@ -104,6 +126,7 @@
                             <td>
                                 <!-- <img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%">
                                 <img src="../images/icons/edit.png" onclick="openEditForm(2,this)" style="width:48px"> -->
+
                             </td>
                         </tr>
                     </table>
@@ -225,7 +248,7 @@
                         <th class="cell"> DOB </th>
                         <th class="cell"> Actions </th>
                         <tr id="authorsFirstRow">
-                            <td> mm </td>
+                            <td> </td>
                             <td> </td>
                             <td> </td>
                             <td> </td>

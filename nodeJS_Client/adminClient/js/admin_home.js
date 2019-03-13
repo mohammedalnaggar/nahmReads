@@ -51,17 +51,17 @@ function openEditForm(x, el) {
   }
   if (x === 2) {
 
-    let editForm=document.getElementById("editBookForm");
+    let editForm = document.getElementById("editBookForm");
     editForm.style.display = "block"
-    document.getElementById("editBookName").value=el.parentElement.parentElement.getElementsByTagName("td")[2].innerText
-    document.getElementById("editBookID").value=el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
+    document.getElementById("editBookName").value = el.parentElement.parentElement.getElementsByTagName("td")[2].innerText
+    document.getElementById("editBookID").value = el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
     // fillEditForm(el);
   }
   if (x === 3) {
     document.getElementById("editAuthorForm").style.display = "block";
     console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     console.log(el.parentElement.parentElement.getElementsByTagName("td")[0].innerText)
-    document.getElementById("editAuthorId").value=el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
+    document.getElementById("editAuthorId").value = el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
     fillAuthorEditForm(el);
   }
 
@@ -86,29 +86,49 @@ function closeEditForm(x) {
 }
 
 function deleteRow(el) {
-  let route = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
-  console.log(route)
-  // while there are parents, keep going until reach TR 
-  while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
-    el = el.parentNode
-  }
-  if (el.parentNode && el.parentNode.rows.length > 0) {
+  swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this entry!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        // move the old text inside here
+        let route = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
+        console.log(route)
+        // while there are parents, keep going until reach TR 
+        while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
+          el = el.parentNode
+        }
+        if (el.parentNode && el.parentNode.rows.length > 0) {
 
-    let idToDelete = el.firstElementChild.innerText
+          let idToDelete = el.firstElementChild.innerText
 
-    console.log(idToDelete)
-    // send the request to the server here 
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        console.log(this.response);
+          console.log(idToDelete)
+          // send the request to the server here 
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log(this.response);
+            }
+          };
+          xhttp.open("GET", `http://127.0.0.1:5000/admin/${route}/${idToDelete}/delete`);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send();
+          el.parentNode.removeChild(el);
+        }
+
+        ////////////
+        swal("Poof! Your selected record has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your selected record is safe!");
       }
-    };
-    xhttp.open("GET", `http://127.0.0.1:5000/admin/${route}/${idToDelete}/delete`);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send();
-    el.parentNode.removeChild(el);
-  }
+    });
+
 }
 
 // naggar and anas last version from editRow << has an error
@@ -141,17 +161,17 @@ function addRow(formNum, tableID, data = null) {
   console.log(111)
   for (let i = 0, iLen = inputs.length; i < iLen; i++) {
     // Update inputs[i]
-    
+
 
     if (i === inputs.length - 1) {
       if (tableID === "categoriesTable")
-         inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(1, this)" style="width:48px">'
+        inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(1, this)" style="width:48px">'
       if (tableID === "booksTable")
-         inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(2, this)" style="width:48px">'
+        inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(2, this)" style="width:48px">'
       if (tableID === "authorsTable")
-          inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(3, this)" style="width:48px">'
+        inputs[i].innerHTML = '<img src="../images/icons/delete.png" onclick="deleteRow(this)" style="width:50px; margin-right: 10%"> <img src="../images/icons/edit.png" onclick="openEditForm(3, this)" style="width:48px">'
 
-      } else {
+    } else {
 
       // put your object attributes here
       inputs[i].innerText = data[i]
@@ -165,22 +185,22 @@ function addRow(formNum, tableID, data = null) {
 }
 // we need to change this function to be generic for the three sections
 function fillEditForm(el) {
-  let category_id=el.parentElement.parentElement.getElementsByTagName('td')[0].innerText
+  let category_id = el.parentElement.parentElement.getElementsByTagName('td')[0].innerText
   let rowToEdit = el.parentElement.parentElement
   console.log('from fill edit form')
   console.log(rowToEdit)
-  console.log(category_id +'from fillEditForm')
+  console.log(category_id + 'from fillEditForm')
 
-    let sourceFillData = rowToEdit.firstElementChild.nextElementSibling.innerText
-    document.getElementById("categoryEditTF").value = sourceFillData
-    document.getElementById("editCategoryBtn").addEventListener("click",(evt)=>{
-        // evt.preventDefault()
+  let sourceFillData = rowToEdit.firstElementChild.nextElementSibling.innerText
+  document.getElementById("categoryEditTF").value = sourceFillData
+  document.getElementById("editCategoryBtn").addEventListener("click", (evt) => {
+    // evt.preventDefault()
 
-        ///////////////////////////////
-        editCategories(category_id)
-        /////////////////////////////////
-    })
-    // send the request to the server here 
+    ///////////////////////////////
+    editCategories(category_id)
+    /////////////////////////////////
+  })
+  // send the request to the server here 
 }
 
 
@@ -192,16 +212,18 @@ window.addEventListener("load", (evt) => {
 })
 
 // list all rows in table
-function listRows(response,table_id){
-JSON.parse(response).forEach(element => {
-  let arr=[]
-  for (x in element){
+function listRows(response, table_id) {
+  JSON.parse(response).forEach(element => {
+    let arr = []
+    for (x in element) {
 
-    arr.push(element[x])}
-  
-  addRow(1,table_id,arr)
+      arr.push(element[x])
+    }
 
-});}
+    addRow(1, table_id, arr)
+
+  });
+}
 
 
 // request categories array and authors array from server
@@ -209,9 +231,9 @@ function listAuthorsCategories() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      let response=JSON.parse(this.response)
-      fillMenues("newBookForm",response)
-      fillMenues("editBookForm",response)
+      let response = JSON.parse(this.response)
+      fillMenues("newBookForm", response)
+      fillMenues("editBookForm", response)
       // listRows(this.response,"booksTable")
     }
   };
@@ -220,35 +242,35 @@ function listAuthorsCategories() {
   xhttp.send()
 };
 // fill menues with response data
-function fillMenues(formID,response){
-  let newBookForm=document.getElementById(formID)
-  let categoriesMenu=newBookForm.getElementsByClassName("dropdown-menu")[0]
-  let authorsMenu=newBookForm.getElementsByClassName("dropdown-menu")[1]
-  categoriesMenu.innerHTML=""
-  authorsMenu.innerHTML=""
+function fillMenues(formID, response) {
+  let newBookForm = document.getElementById(formID)
+  let categoriesMenu = newBookForm.getElementsByClassName("dropdown-menu")[0]
+  let authorsMenu = newBookForm.getElementsByClassName("dropdown-menu")[1]
+  categoriesMenu.innerHTML = ""
+  authorsMenu.innerHTML = ""
   response.categories.forEach(elem => {
-  let categoryChoice=document.createElement("li")
-  categoryChoice.innerText=elem.name
-  categoryChoice.setAttribute("id",elem._id)
-  categoriesMenu.appendChild(categoryChoice)
+    let categoryChoice = document.createElement("li")
+    categoryChoice.innerText = elem.name
+    categoryChoice.setAttribute("id", elem._id)
+    categoriesMenu.appendChild(categoryChoice)
   })
   response.authors.forEach(elem => {
-    let authorChoice=document.createElement("li")
-    authorChoice.innerText=elem.first_name+" "+elem.last_name
-    authorChoice.setAttribute("id",elem._id)
+    let authorChoice = document.createElement("li")
+    authorChoice.innerText = elem.first_name + " " + elem.last_name
+    authorChoice.setAttribute("id", elem._id)
     authorsMenu.appendChild(authorChoice)
-    })
-    $('.dropdown .dropdown-menu li').click(function () {
-      $(this).parents('.dropdown').find('span').text($(this).text());
-      $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-    });
-    /*End Dropdown Menu*/
-    
-    
-    $('.dropdown-menu li').click(function () {
-      var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-        msg = '<span class="msg">Hidden input value: ';
-      $('.msg').html(msg + input + '</span>');
-    });
+  })
+  $('.dropdown .dropdown-menu li').click(function () {
+    $(this).parents('.dropdown').find('span').text($(this).text());
+    $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+  });
+  /*End Dropdown Menu*/
+
+
+  $('.dropdown-menu li').click(function () {
+    var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+      msg = '<span class="msg">Hidden input value: ';
+    $('.msg').html(msg + input + '</span>');
+  });
 
 }

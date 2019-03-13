@@ -57,6 +57,9 @@ function listAuthors() {
 };
 
 function fillAuthorEditForm(el) {
+  console.log(el)
+  console.log(el.parentElement.parentElement.firstElementChild.innerText)
+  let authorID = el.parentElement.parentElement.firstElementChild.innerText
   let form = document.getElementById("editAuthorForm")
   let inputsTF = form.getElementsByTagName("input")
   //>> array feha 4 7agat image  > Img - Fname - Lname - DOB
@@ -71,6 +74,12 @@ function fillAuthorEditForm(el) {
     } else{ 
       inputsTF[i].value = sourceRowData[i].innerText
   }}
+
+  editAuthorBtn.addEventListener('click', (ev)=>{
+    // ev.preventDefault();
+    editAuthor(authorID)
+
+  })
 }
 
 

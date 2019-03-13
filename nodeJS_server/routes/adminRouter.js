@@ -36,7 +36,7 @@ adminRouter.post('/', (req, res) => {
                     }
                 });
             // console.log(token)
-            // res.send(token)
+            res.send(token)
         }
     })
 
@@ -107,10 +107,11 @@ adminRouter.get("/authors", (req, res) => {
 });
 
 //add author
-adminRouter.post("/authors",(req,res)=>{
+adminRouter.post("/authors", (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq=req.body
-    const author = new authorModel({first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
+    console.log(newReq)
+    const author = new authorModel({picture:newReq.picture ,first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
     author.save((err,data)=>{
         if(!err)res.redirect("/admin/authors");
 });
@@ -119,7 +120,7 @@ adminRouter.post("/authors",(req,res)=>{
 adminRouter.post("/authors/:id/edit", (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq = req.body
-    authorModel.updateOne({ _id: req.params.id }, { first_name: newReq.first_name, last_name: newReq.last_name, birth_date: newReq.birth_date }
+    authorModel.updateOne({ _id: req.params.id }, {picture:newReq.picture,first_name: newReq.first_name, last_name: newReq.last_name, birth_date: newReq.birth_date }
         , (err) => {
             if (!err)
                 res.redirect("/admin/authors");
@@ -140,18 +141,18 @@ adminRouter.get('/authors/:id/delete', function (req, res) {
 adminRouter.get("/categories", (req, res) => {
     categoryModel.find({}, (err, data) => {
         if (!err)
-        res.send(data);
+            res.send(data);
     });
 });
 
 
 //add category
-adminRouter.post("/categories",(req,res)=>{
+adminRouter.post("/categories", (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq=req.body
-    const category = new categoryModel({name:newReq.name});
-    category.save((err,data)=>{
-        if(!err)res.redirect("/admin/categories");
+    const category = new categoryModel({ name: newReq.name });
+    category.save((err, data) => {
+        if (!err) res.redirect("/admin/categories");
     });
 });
 
