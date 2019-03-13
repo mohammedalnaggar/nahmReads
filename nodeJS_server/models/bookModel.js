@@ -8,11 +8,7 @@ const bookSchema = new mongoose.Schema ({
     author_id: {
         type: "string", 
         required: true,
-<<<<<<< HEAD
         ref: 'author'
-=======
-        ref: "author"
->>>>>>> 26c63211e8ae31389d71d8e14c7060aa216640ae
     }, 
     category_id:{
         type: "string",

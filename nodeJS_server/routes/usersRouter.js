@@ -177,7 +177,6 @@ usersRouter.get("/:idU/:idA", (req, res) => {
         }
         )
 
-<<<<<<< HEAD
     }
     ).then(() => 
     {
@@ -196,6 +195,4 @@ usersRouter.get("/authors", (req, res) => {
     });
 });
 
-=======
->>>>>>> 26c63211e8ae31389d71d8e14c7060aa216640ae
 module.exports = usersRouter
