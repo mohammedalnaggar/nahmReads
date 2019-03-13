@@ -10,7 +10,7 @@ const usersRouter = require('./routes/usersRouter')
 const adminRouter = require('./routes/adminRouter')
 const authorsRouter = require('./routes/authorsRouter')
 const booksRouter = require('./routes/booksRouter')
-
+const homeRouter = require('./routes/homeRouter')
 app.use(express.urlencoded());
 app.use(express.json())
 
@@ -22,14 +22,14 @@ app.use(function(req,res,next){
 
 // users route handler
 app.use('/users', usersRouter)
-
-
 // admin route handler
 app.use('/admin', adminRouter)
+// authors route handler
 app.use('/authors', authorsRouter)
-
 // books route handler
 app.use('/books', booksRouter)
+// home route handler
+app.use('/home', homeRouter)
 
 app.listen(PORT,"0.0.0.0", () => {
     console.log(`Listening on port: ${PORT}`)

@@ -46,6 +46,7 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+//post hook for delete
 
 const userModel = mongoose.model('user', userSchema)
 
