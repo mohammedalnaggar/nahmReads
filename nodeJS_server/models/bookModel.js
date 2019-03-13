@@ -6,12 +6,12 @@ const bookSchema = new mongoose.Schema ({
             required: true
     },
     author_id: {
-        type: "string", 
-        required: true
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "author"
     }, 
     category_id:{
-        type: "string",
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category"
     },
     rating:{
         type:Number,

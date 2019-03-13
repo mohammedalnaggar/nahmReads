@@ -1,7 +1,11 @@
 const express = require('express')
 const userModel = require('../models/userModel')
+const bookModel = require('../models/bookModel')
+const authorModel = require('../models/authorModel')
+const categoryModel = require('../models/categoryModel')
 const jwt = require('jsonwebtoken')
-
+const send_mail=require("../connection/mail")
+const adminRouter = require("../models/adminModel")
 const usersRouter = express.Router()
 
 
@@ -52,6 +56,8 @@ usersRouter.post('/', (req, res) => {
                             message: "auth",
                             token
                         })
+                        console.log("hiiiiiiii")
+                        send_mail(new_req.email)
                     }
                 })
             } else {
@@ -112,7 +118,64 @@ usersRouter.post('/login', (req, res, next) => {
     })
 })
 
+usersRouter.get('/:id/home', (req, res) => {
+    // userModel.find({},(err, data) => {
+    //     if (!err){
+    //         res.send(data)
+    //     }
+    // })
+    // userModel.pre('find', function(next) {
+    //     this.populate('books')
+    //     next()
+    // })
 
+//     userModel.find({}).populate('books.book_id', 'name author_id')
+//     .exec((err, posts) => {
+//         res.send(posts)
+//       console.log("Populated User " + posts);
+//     })
+
+// })
+userModel.find({}).populate('books.book_id')
+    .exec((err, posts) => {
+        res.send(posts)
+    //   console.log("Populated User " + posts);
+    })
+
+})
+
+// adminRouter.post('/testuser', (req, res) => {
+//     // let new_req = JSON.parse(Object.keys(req.body)[0])
+//     let new_req=req.body
+
+//     let new_user = {
+//         name: {
+//             first_name: new_req.first_name,
+//             last_name: new_req.last_name
+//         },
+//         email: new_req.email,
+//         password: new_req.password,
+//         tokens: [
+//             token
+//         ],
+//         books: [{
+//             book_id: req.body.books[0].book_id,
+//             status: req.body.books[0].status,
+//             user_rating: req.body.books[0].user_rating
+
+//         }]
+//     }
+
+//     userModel.create(new_user, (err, data) => {
+//         if (err) {
+//             res.send(err)
+//         }
+//         else {
+//             res.redirect("/admin/books")
+//         }
+//     })
+
+// })
 
 
 module.exports = usersRouter

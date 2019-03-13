@@ -25,5 +25,6 @@ authorSchema.post("findOneAndDelete",function(doc) {
         }
     })
 })
+
 const authorModel = mongoose.model('author', authorSchema)
 module.exports = authorModel

@@ -1,0 +1,58 @@
+/* tabs styling  */
+.tab-group {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.tab-group {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+.tab-group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tab-group li a {
+  display: block;
+  text-decoration: none;
+  padding: 15px;
+  background: rgba(160, 179, 176, 0.25);
+  color: #a0b3b0;
+  font-size: 20px;
+  float: left;
+  width: 25%;
+  text-align: center;
+  cursor: pointer;
+  transition: .5s ease;
+}
+
+.tab-group li a:hover {
+  background: firebrick;
+  color: #ffffff;
+}
+
+.tab-group .active a {
+  background: tomato;
+  color: #ffffff;
+}
+
+.tab-content>div:nth-child(2) {
+  display: none;
+}
+
+.tab-content>div:nth-child(3) {
+  display: none;
+}
+
+/* rating styling  */

@@ -25,6 +25,8 @@ app.use('/users', usersRouter)
 // admin route handler
 app.use('/admin', adminRouter)
 
+// app.use('/users/:id', authintcationRouter)
+
 
 app.listen(PORT,"0.0.0.0", () => {
     console.log(`Listening on port: ${PORT}`)
