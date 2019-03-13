@@ -6,8 +6,10 @@ require('./connection/DBconnector')
 
 const app = express();
 
+const categoriesRouter = require('./routes/categoriesRouter')
 const usersRouter = require('./routes/usersRouter')
 const adminRouter = require('./routes/adminRouter')
+// const categoriesRouter = require('./routes/categoryRouter')
 
 app.use(express.urlencoded());
 app.use(express.json())
@@ -24,6 +26,10 @@ app.use('/users', usersRouter)
 
 // admin route handler
 app.use('/admin', adminRouter)
+
+// categories route handler
+app.use('/categories', categoriesRouter)
+
 
 
 app.listen(PORT,"0.0.0.0", () => {
