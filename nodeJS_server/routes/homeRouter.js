@@ -14,15 +14,15 @@ homeRouter.post("/", (req, res) => {
         .select("books")
         .then((data) => {
             data_object.books = data
-            const arr_len=data.books.length
-            let inc=0
+            const arr_len = data.books.length
+            let inc = 0
             data.books.forEach((book) => {
                 authorModel.findById(book.book_id.author_id).select("first_name last_name")
                     .exec((err, author) => {
                         if (!err) { data_object.authors.push(author) }
                         console.log("hi")
                         inc++
-                        if (inc==arr_len){res.send(data_object)}
+                        if (inc == arr_len) { res.send(data_object) }
                     })
             })
 

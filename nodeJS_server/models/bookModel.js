@@ -41,6 +41,28 @@ bookSchema.post("findOne",function(doc) {
         })
     })
 })
+
+
+// post hook to delete books from users lists after deleting it from website
+bookSchema.post("findOneAndDelete",function(doc) {
+    userModel.find({})
+    .then((data)=>{
+        data.forEach((user)=>{
+            let arr_books=[]
+            user.books.forEach((book)=>{
+                if (book.book_id==doc._id){
+                }
+                else{
+                    arr_books.push(book)
+                }
+            })
+            user.books=arr_books
+            user.save()
+        })
+    })
+})
+
+
 const bookModel = mongoose.model('book', bookSchema)
 
 module.exports = bookModel
