@@ -38,7 +38,7 @@
 }
 
 .tab-group li a:hover {
-  background: firebrick;
+  background: rgb(224, 47, 47);
   color: #ffffff;
 }
 
