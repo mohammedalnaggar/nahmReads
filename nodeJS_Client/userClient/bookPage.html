@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="./assets/css/header-user-dropdown.css">
     <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 
+    <!-- drop down menu style -->
+    <link rel="stylesheet" href="./css/main.css">
+
 </head>
 
 <body id="top">
@@ -67,19 +70,60 @@
             <div class="thumbnails">
 
                 <div class="box">
-                    <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
+                    <img src="images/pic04.jpg" alt="" class="image fit"/>
+                    
                     <div class="inner">
-                        <hr>
                         <!-- status selector -->
+                        <div class="dropdown">
+                                <div class="select">
+                                    <span>Select shelve</span>
+                                    <i class="fa fa-chevron-left"></i>
+                                </div>
+                                <input id="addAuthorChoice" type="hidden" name="author">
+                                <ul class="dropdown-menu">
+                                    <li>Want to read</li>
+                                    <li>Reading</li>
+                                    <li>Read</li>
+                                </ul>
+                        </div>
 
                     </div>
+                    
+                   <!-- rating  -->
+                   <div class="rate" style="margin-left: 5px;width: 100%">
+                        <img id="star1" src="images/emptystar.png">
+                        <img id="star2" src="images/emptystar.png">
+                        <img id="star3" src="images/emptystar.png">
+                        <img id="star4" src="images/emptystar.png">
+                        <img id="star5" src="images/goldenstar.png">
+                    </div>
+                    <br>
                 </div>
 
-                <div class="box" style="width:60%">
+                <div class="box" style="width:60%; text-align: left;padding: 2%">
                     <br>
                     <h2>Book Name</h2>
                     <h3>Book Author</h3>
-                    <h3>Category Name</h3>
+                    <h3>Category Name <span> Category </span> </h3>
+                    <br>
+
+                    <hr>
+
+                    <!-- rating  -->
+                    <div class="rate" style="margin-left: 5px;">
+                        <img style="width:4%" id="star1" src="images/emptystar.png">
+                        <img style="width:4%" id="star2" src="images/emptystar.png">
+                        <img style="width:4%" id="star3" src="images/emptystar.png">
+                        <img style="width:4%" id="star4" src="images/emptystar.png">
+                        <img style="width:4%" id="star5" src="images/goldenstar.png">
+                        <div>
+                            <span>2.5</span>
+                            <span>|</span>
+                            <span>300 </span> 
+                            <span>ratings</span>
+                        </div>
+                       
+                    </div>
 
                 </div>
 
@@ -104,6 +148,10 @@
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <!-- my own scripts -->
+    <script src="js/main.js"></script>
+
 
     <!-- header -->
     <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
