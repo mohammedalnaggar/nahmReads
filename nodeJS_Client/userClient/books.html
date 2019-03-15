@@ -1,9 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Full Motion by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
+
 <html>
 
 <head>
@@ -66,28 +62,13 @@
             <!-- Boxes -->
             <div class="thumbnails">
 
-
-                <div class="box">
-                    <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-                    <div class="inner">
-                        <h3>The Blue Elephant</h3>
-                        <a href="" class="button fit">Visit book page</a>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
+                <div class="box" id="book_div" style="display:none"> 
+                    <img class="image fit" src="images/pic04.jpg" alt=""/>
                     <div class="inner">
                         <h3>100 Days</h3>
-                        <a href="" class="button fit">Visit book page</a>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-                    <div class="inner">
-                        <h3>The Planet Earth</h3>
-                        <a href="" class="button fit">Visit book page</a>
+                        <h3>100 Days</h3>
+                        <button class="button style2 fit" onclick="window.location.href='./bookPage.html'"> Visit book page</button>
+                        <button class="button style2 fit" onclick="window.location.href='./authorPage.html'"> Visit Author page</button>
                     </div>
                 </div>
 
@@ -113,6 +94,8 @@
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="./js/books.js"></script>
+
 
     <!-- header -->
     <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->

@@ -11,7 +11,8 @@ adminRouter.post('/', (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
     adminModel.find({ email: newReq.email, password: newReq.password }, (err, data) => {
         if (err || data.length === 0) {
-            res.send(err);
+            console.log(data)
+            res.send(null);
         } else {
             // console.log(data[0].tokens)
             //create token here.
@@ -30,13 +31,13 @@ adminRouter.post('/', (req, res) => {
             adminModel.updateOne({ email: newReq.email, password: newReq.password },
                 { $set: { tokens: ntokens } }, (err, data) => {
                     if (err)
-                        console.log(err)
+                        {console.log(err)
+                        res.send(null)}
                     else {
                         res.send(token)
+                        
                     }
                 });
-            // console.log(token)
-            res.send(token)
         }
     })
 
