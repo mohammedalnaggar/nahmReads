@@ -10,7 +10,6 @@ ObjectId = require('mongodb').ObjectID;
 // signing up new user
 usersRouter.post('/', (req, res) => {
     new_req = JSON.parse(Object.keys(req.body)[0])
-    console.log(new_req)
     // check if the email already exists
     userModel.find({
         email: new_req.email
@@ -18,8 +17,6 @@ usersRouter.post('/', (req, res) => {
         if (!err) {
             if (!data[0]) {
                 // register newuser
-                console.log(new_req)
-
                 // create a token
                 const data = {
                     check: true
@@ -43,16 +40,12 @@ usersRouter.post('/', (req, res) => {
                     ],
                     books:[]
                 }
-                console.log(new_user)
-
                 userModel.create(new_user, (err, data) => {
                     if (err) {
                         // as long as all fields will not be null from client side >> check mail only not
                         // existing
-                        res.send(err)
-                        res.json({
-                            message: "Email already exists .. from create!"
-                        })
+                        res.send(null)
+
                     } else {
                         res.send({
                             message: "auth",
@@ -62,12 +55,10 @@ usersRouter.post('/', (req, res) => {
                     }
                 })
             } else {
-                res.json({
-                    message: "Invalid email!"
-                })
+                res.send(null)
             }
         } else {
-            res.send(err);
+            res.send(null);
         }
     })
 })
@@ -76,7 +67,6 @@ usersRouter.post('/login', (req, res, next) => {
 
     new_req = JSON.parse(Object.keys(req.body)[0])
 
-    console.log(new_req)
     userModel.find({
         email: new_req.email,
         password: new_req.password
@@ -98,7 +88,6 @@ usersRouter.post('/login', (req, res, next) => {
                 })
 
                 new_tokens.push(token)
-                console.log(new_tokens)
 
                 userModel.updateOne({
                     email: new_req.email
@@ -108,22 +97,21 @@ usersRouter.post('/login', (req, res, next) => {
                     }
                 }, (err, data) => {
                     if (!err) {
-                        console.log()
                         // send the new token to the client
                         res.send({
                             message: "authinticated",
                             token
                         });
                     } else {
-                        res.send(err)
+                        res.send(null)
                     }
                 })
 
             } else {
-                res.send('No match for this id')
+                res.send(null)
             }
         } else {
-            res.send('Err in finding id')
+            res.send(null)
         }
     })
 })
