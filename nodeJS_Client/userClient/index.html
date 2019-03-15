@@ -88,59 +88,42 @@
                 <div class="thumbnails">
 
                     <div class="box">
-                        <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
+                        <a href="bookPage.html" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
                         <div class="inner">
                             <h3>The Blue Elephant</h3>
-                            <a href="" class="button style3 fit">Visit book page</a>
-                            <a href="" class="button style3 fit">Author name</a>
+                            <button class="button style3 fit" onclick="window.location.href='./bookPage.html'"> Visit book page</button>
+                            <button class="button style3 fit" onclick="window.location.href='./authorPage.html'"> Visit Author page</button>
                             <hr>
-                            <!-- rating  -->
-                            <!-- <div class="rate" style="margin-left: 5px;width: 100%">
-                                <img id="star1" src="images/emptystar.png">
-                                <img id="star2" src="images/emptystar.png">
-                                <img id="star3" src="images/emptystar.png">
-                                <img id="star4" src="images/emptystar.png">
-                                <img id="star5" src="images/goldenstar.png">
-                            </div> -->
 
-                            <div id="reviewStars-input">
-                                <input id="star-4" type="radio" name="reviewStars"/>
-                                <label title="gorgeous" for="star-4"></label>
-                            
-                                <input id="star-3" type="radio" name="reviewStars"/>
-                                <label title="good" for="star-3"></label>
-                            
-                                <input id="star-2" type="radio" name="reviewStars"/>
-                                <label title="regular" for="star-2"></label>
-                            
-                                <input id="star-1" type="radio" name="reviewStars"/>
-                                <label title="poor" for="star-1"></label>
-                            
-                                <input id="star-0" type="radio" name="reviewStars"/>
-                                <label title="bad" for="star-0"></label>
+
+                            <!-- status selector -->
+                            <div class="dropdown">
+                                <div class="select">
+                                    <span>Select shelve</span>
+                                    <i class="fa fa-chevron-left"></i>
+                                </div>
+                                <input id="addAuthorChoice" type="hidden" name="author">
+                                <ul class="dropdown-menu">
+                                    <li>Want to read</li>
+                                    <li>Reading</li>
+                                    <li>Read</li>
+                                </ul>
+                                
                             </div>
-                            <!-- <fieldset class="rating">
-                                <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                                <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                                <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                                <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                                <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                                <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                            </fieldset> -->
+                            
                             <!-- rating  -->
-                        </div>
-                    </div>
+                            <div class="rate" style="margin-left: 5px;width: 100%">
+                                <br>
+                                <img style="width:10%" id="star1" src="images/emptystar.png">
+                                <img style="width:10%" id="star2" src="images/emptystar.png">
+                                <img style="width:10%" id="star3" src="images/emptystar.png">
+                                <img style="width:10%" id="star4" src="images/emptystar.png">
+                                <img style="width:10%" id="star5" src="images/goldenstar.png">
+                            </div>
 
-                    <div class="box">
-                        <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-                        <div class="inner">
-                            <h3>100 Days</h3>
-                            <a href="" class="button style3 fit">Visit book page</a>
+
                         </div>
+
                     </div>
 
                 </div>
@@ -153,13 +136,7 @@
 
                 <div class="thumbnails">
 
-                    <div class="box">
-                        <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-                        <div class="inner">
-                            <h3>The Blue Elephant</h3>
-                            <a href="" class="button style3 fit">Visit book page</a>
-                        </div>
-                    </div>
+                  
 
                 </div>
             </div>
@@ -169,50 +146,21 @@
 
                 <div class="thumbnails">
 
-                    <div class="box">
-                        <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-                        <div class="inner">
-                            <h3>The Blue Elephant</h3>
-                            <a href="" class="button style3 fit">Visit book page</a>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-                        <div class="inner">
-                            <h3>100 Days</h3>
-                            <a href="" class="button style3 fit">Visit book page</a>
-                        </div>
-                    </div>
 
                 </div>
 
             </div>
 
-            <!-- want to read tab -->
-            <div class="inner" id="wantToRead">
+             <!-- want to read tab -->
+             <div class="inner" id="wantToRead" style="display:none">
 
                 <div class="thumbnails">
 
-                    <div class="box">
-                        <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-                        <div class="inner">
-                            <h3>The Blue Elephant</h3>
-                            <a href="" class="button style3 fit">Visit book page</a>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <a href="" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-                        <div class="inner">
-                            <h3>100 Days Hamani</h3>
-                            <a href="" class="button style3 fit">Visit book page</a>
-                        </div>
-                    </div>
 
                 </div>
 
             </div>
+           
 
         </div>
     </div>
