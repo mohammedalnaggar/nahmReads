@@ -75,36 +75,37 @@
                     </div>
                     
                    <!-- rating  -->
-                   <div class="rate" style="margin-left: 5px;width: 100%">
+                   <div id=""  class="rate" style="margin-left: 5px;width: 100%">
                         <img id="star1" src="images/emptystar.png">
                         <img id="star2" src="images/emptystar.png">
                         <img id="star3" src="images/emptystar.png">
                         <img id="star4" src="images/emptystar.png">
-                        <img id="star5" src="images/goldenstar.png">
+                        <img id="star5" src="images/emptystar.png">
                     </div>
                     <br>
                 </div>
 
                 <div class="box" style="width:60%; text-align: left;padding: 2%">
                     <br>
-                    <h2>Book Name</h2>
-                    <h3>Book Author</h3>
-                    <h3>Category Name <span> Category </span> </h3>
-                    <br>
+                    <h2 id="bookName">Book Name</h2>
+                    <h3> By <span id="bookAuthor">Book Author</span></h3>
+                    <h3 ><span id="bookCategory"> Category Name </span> Category</h3>
+                    
 
                     <hr>
 
-                    <!-- rating  -->
+                    <!-- Average rating  -->
                     <div class="rate" style="margin-left: 5px;">
-                        <img style="width:4%" id="star1" src="images/emptystar.png">
-                        <img style="width:4%" id="star2" src="images/emptystar.png">
-                        <img style="width:4%" id="star3" src="images/emptystar.png">
-                        <img style="width:4%" id="star4" src="images/emptystar.png">
-                        <img style="width:4%" id="star5" src="images/goldenstar.png">
+                        <img style="width:4%" id="Avgstar1" src="images/emptystar.png">
+                        <img style="width:4%" id="Avgstar2" src="images/emptystar.png">
+                        <img style="width:4%" id="Avgstar3" src="images/emptystar.png">
+                        <img style="width:4%" id="Avgstar4" src="images/emptystar.png">
+                        <img style="width:4%" id="Avgstar5" src="images/emptystar.png">
                         <div>
-                            <span>2.5</span>
+                            <br>
+                            <span id="avgRating">2.5</span>
                             <span>|</span>
-                            <span>300 </span> 
+                            <span id="ratesNum">300 </span> 
                             <span>ratings</span>
                         </div>                       
                     </div>
@@ -135,6 +136,8 @@
 
     <!-- my own scripts -->
     <script src="js/main.js"></script>
+    <script src="js/bookPage.js"></script>
+    <!-- <script src="js/books.js"></script> -->
 
 
     <!-- header -->
