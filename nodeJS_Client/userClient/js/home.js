@@ -13,7 +13,7 @@ function listBooks() {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.response)
             let inc = 0
-            document.getElementById("username").innerHTML=response.books.name.first_name+" "+response.books.name.last_name
+            document.getElementById("username").innerHTML = response.books.name.first_name + " " + response.books.name.last_name
             response.books.books.forEach(book => {
                 let div = document.createElement("div")
                 //////all section/////////////////
@@ -39,8 +39,8 @@ function listBooks() {
                     div.getElementsByTagName('button')[0].setAttribute('id', book.book_id._id)
                     div.getElementsByTagName('button')[1].setAttribute('id', book.book_id.author_id)
                 }
-                 //////reading section/////////////////
-                 if (book.status == "reading") {
+                //////reading section/////////////////
+                if (book.status == "reading") {
                     let div = document.createElement("div")
                     books_reading_div.appendChild(div)
                     div.innerHTML = book_div.innerHTML
@@ -51,9 +51,9 @@ function listBooks() {
                     div.style.display = true
                     div.getElementsByTagName('button')[0].setAttribute('id', book.book_id._id)
                     div.getElementsByTagName('button')[1].setAttribute('id', book.book_id.author_id)
-                }               
-                 //////want to read section/////////////////
-                 if (book.status == "want to read") {
+                }
+                //////want to read section/////////////////
+                if (book.status == "want to read") {
                     let div = document.createElement("div")
                     books_want_div.appendChild(div)
                     div.innerHTML = book_div.innerHTML
@@ -64,12 +64,38 @@ function listBooks() {
                     div.style.display = true
                     div.getElementsByTagName('button')[0].setAttribute('id', book.book_id._id)
                     div.getElementsByTagName('button')[1].setAttribute('id', book.book_id.author_id)
-                } 
+                }
 
                 inc++
 
                 // add event listeners to send you to author page
             });
+            // for drop down menu
+            /*Dropdown Menu*/
+            $('.dropdown').click(function () {
+                $(this).attr('tabindex', 1).focus();
+                $(this).toggleClass('active');
+                $(this).find('.dropdown-menu').slideToggle(300);
+            });
+            $('.dropdown').focusout(function () {
+                $(this).removeClass('active');
+                $(this).find('.dropdown-menu').slideUp(300);
+            });
+
+            $('.dropdown .dropdown-menu li').click(function () {
+                $(this).parents('.dropdown').find('span').text($(this).text());
+                $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+            });
+            /*End Dropdown Menu*/
+
+
+            $('.dropdown-menu li').click(function () {
+                var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+                    msg = '<span class="msg">Hidden input value: ';
+                $('.msg').html(msg + input + '</span>');
+            });
+
+
         }
     };
     xhttp.open("GET", "http://127.0.0.1:5000/home");

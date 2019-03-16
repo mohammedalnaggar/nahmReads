@@ -8,7 +8,7 @@ authorAddBtn.addEventListener("click", function (evt) {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.response)[JSON.parse(this.response).length - 1]
-      let author_arr = [response._id, null, response.first_name, response.last_name, response.birth_date]
+      let author_arr = [response._id, response.picture, response.first_name, response.last_name, response.birth_date]
       addRow(3, "authorsTable", author_arr)
       location.reload(true);
 
@@ -17,6 +17,7 @@ authorAddBtn.addEventListener("click", function (evt) {
   xhttp.open("POST", "http://127.0.0.1:5000/admin/authors");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(JSON.stringify({
+     "picture":localStorage.getItem("current_image_name"),
     "first_name": document.getElementById("newAuthorFName").value,
     "last_name": document.getElementById("newAuthorLName").value,
     "birth_date": document.getElementById("newAuthorDOB").value
@@ -30,13 +31,14 @@ editAuthorBtn.addEventListener("click",(evt)=>{
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let response=JSON.parse(this.response)[JSON.parse(this.response).length-1]
-      let author_arr = [response._id,null, response.first_name,response.last_name,response.birth_date]
+      let author_arr = [response._id,response.picture, response.first_name,response.last_name,response.birth_date]
       // addRow("authorsTable",author_arr)
     }
   };
   xhttp.open("POST", `http://127.0.0.1:5000/admin/authors/${id}/edit`);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(JSON.stringify({
+    "picture":localStorage.getItem("current_image_name"),
     "first_name": document.getElementById("editAuthorFName").value,
     "last_name": document.getElementById("editAuthorLName").value,
     "birth_date": document.getElementById("editAuthorDOB").value
@@ -81,8 +83,6 @@ function fillAuthorEditForm(el) {
 
   })
 }
-
-
 function conv_to_date(date){
   let month=date.getMonth()+1
   let day=date.getDate()
