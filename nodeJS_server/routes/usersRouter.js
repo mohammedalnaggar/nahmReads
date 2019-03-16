@@ -48,6 +48,7 @@ usersRouter.post('/', (req, res) => {
 
                     } else {
                         res.send({
+                            user_id:data._id,
                             message: "auth",
                             token
                         })
@@ -74,6 +75,7 @@ usersRouter.post('/login', (req, res, next) => {
         if (!err) {
             if (data[0]) {
                 // create a new token for logged in user
+                let user_id=data[0]._id
                 const data2 = {
                     check: true
                 }
@@ -99,6 +101,7 @@ usersRouter.post('/login', (req, res, next) => {
                     if (!err) {
                         // send the new token to the client
                         res.send({
+                            user_id,
                             message: "authinticated",
                             token
                         });

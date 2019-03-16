@@ -19,6 +19,7 @@ app.use(express.json())
 // allow client to recive ajax requests
 app.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin","*")
+    res.header("Access-Control-Allow-Headers", "user_id")
     next();
 });
 

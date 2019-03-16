@@ -42,6 +42,8 @@ function request_response() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.response) {
+                let response = JSON.parse(this.response)
+                localStorage.setItem("userId",response.user_id)
                 window.location.href = "../index.html";
               }
               else {
