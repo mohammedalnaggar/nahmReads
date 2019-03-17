@@ -16,6 +16,7 @@ window.addEventListener("load", (evt) => {
           div.setAttribute("id",author._id)
           div.setAttribute("class","box") 
           div.getElementsByTagName("h3")[0].innerText=author.first_name+" "+author.last_name
+          
           div.style.display=true
 // add event listeners to send you to author page
         });

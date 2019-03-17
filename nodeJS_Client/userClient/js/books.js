@@ -2,8 +2,6 @@ let books_div = document.getElementsByClassName("thumbnails")[0]
 let book_div = document.getElementById("book_div")
 window.addEventListener("load", (evt) => {
   listBooks();
-  localStorage.setItem('userId', '5c86b07b9411fa53c69270dd')
-
 })
 
 function listBooks() {

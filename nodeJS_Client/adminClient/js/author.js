@@ -3,7 +3,7 @@ const authorAddBtn = document.getElementById("addNewAuthorBtn");
 const editAuthorBtn=document.getElementById("editAuthorBtn");
 
 authorAddBtn.addEventListener("click", function (evt) {
-  evt.preventDefault()
+  // evt.preventDefault()
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {

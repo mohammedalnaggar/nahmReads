@@ -37,6 +37,15 @@ function fillBookPage() {
       }
 
       document.getElementById('avgRating').innerText = new_res.book.rating
+    let div=document.getElementsByClassName("thumbnails")[0]
+
+      ////add listener on selection from menue
+    let liTags=div.getElementsByTagName("li")
+    for (let i=0;i<3;i++){
+        liTags[i].addEventListener("click",function(event){
+            shelve(this.innerText,localStorage.getItem("bookId"))
+        })
+    }
       
     }
   };

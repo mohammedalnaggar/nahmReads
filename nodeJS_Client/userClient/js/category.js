@@ -10,9 +10,6 @@ window.addEventListener("load", (evt) => {
 })
 
 
-
-
-
   function listCategoryBooks() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -22,16 +19,21 @@ window.addEventListener("load", (evt) => {
           let div= document.createElement("div")
           books_div.appendChild(div)
           div.innerHTML=book_div.innerHTML
-          div.setAttribute("id",book._id)
           div.setAttribute("class","box") 
           div.getElementsByTagName("h2")[0].innerText=book.name
           categoryName_span.innerHTML=book.category_id.name
           div.style.display=true
+          let book_button=div.getElementsByTagName("button")[0]
+          book_button.addEventListener("click",()=>{
+            localStorage.setItem("bookId",book._id)
+            window.location.href='./bookPage.html'
+
+          })
 // add event listeners to send you to author page
         });
       }
     };
-    xhttp.open("GET", "http://127.0.0.1:5000/categories/5c801db36cc08a765e22e0bc");
+    xhttp.open("GET", `http://127.0.0.1:5000/categories/${localStorage.getItem("categoryId")}`);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send()
   };

@@ -16,16 +16,19 @@ booksRouter.get('/', (req, res) => {
 ///////////////////////////////////////////////////////////////////////
 ///////////////////book page router//////////////////////////////////
 booksRouter.post('/:id', (req, res) => {
-    // let new_req = JSON.parse(Object.keys(req.body)[0])
-    let new_req = req.body
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+    // let new_req = req.body
     let user = new_req.user_id
     let book_data = { book: null, status: null, user_rating: null }
+    console.log(user)
     userModel.findById(user)
         .then((data) => {
+            console.log(data)
             data.books.forEach((book) => {
                 if (req.params.id == book.book_id) {
                     book_data.status = book.status
                     book_data.user_rating = book.user_rating
+                    
                 }
             })
         })
@@ -70,11 +73,12 @@ booksRouter.post('/:id/rate', (req, res) => {
 ///////////////////////////////////////////////////////////////////////
 ///////////////////book shelving router//////////////////////////////////
 booksRouter.post('/:id/shelve', (req, res) => {
-    // let new_req = JSON.parse(Object.keys(req.body)[0])
-    let new_req = req.body
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+    // let new_req = req.body
     let user = new_req.user_id
     let booksArr = []
     flag=false
+    console.log(user,new_req.status)
     userModel.findOne({ _id: user })
         .then((data) => {
             data.books.forEach((book) => {
@@ -87,10 +91,10 @@ booksRouter.post('/:id/shelve', (req, res) => {
             if (!flag) { booksArr.push({ book_id: req.params.id, status: new_req.status, user_rating: 0 }) }
             console.log(booksArr)
             userModel.updateOne({ _id: user }, { books: booksArr })
-                .then((err) => {
-                    if (!err) console.log("done")
-                })
-        })
+                .then((data) => {
+                    res.send("done")
+                }).catch(()=>{res.send(null)})
+        }).catch(()=>{res.send(null)})
 
 })
 ///////////////////////////////////////////////////////////////////////

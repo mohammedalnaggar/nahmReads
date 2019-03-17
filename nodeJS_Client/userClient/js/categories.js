@@ -13,11 +13,15 @@ window.addEventListener("load", (evt) => {
           let div= document.createElement("div")
           categories_div.appendChild(div)
           div.innerHTML=category_div.innerHTML
-          div.setAttribute("id",category._id)
           div.setAttribute("class","box") 
           div.getElementsByTagName("h2")[0].innerText=category.name
           div.getElementsByTagName
           div.style.display=true
+          let category_button=div.getElementsByTagName("button")[0]
+          category_button.addEventListener("click",()=>{
+            localStorage.setItem("categoryId",category._id)
+            window.location.href='./categoryPage.html'
+          })
 
 // add event listeners to send you to author page
         });
