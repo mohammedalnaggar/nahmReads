@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const userModel = require('./userModel')
 const bookSchema = new mongoose.Schema ({
+    picture:{
+        type: "string",
+    },
     name:{
             type: "string",
             required: true

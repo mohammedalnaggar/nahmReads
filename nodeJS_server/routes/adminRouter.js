@@ -58,8 +58,9 @@ adminRouter.get('/books', (req, res) => {
 adminRouter.post('/books', (req, res) => {
     let new_req = JSON.parse(Object.keys(req.body)[0])
     // let new_req=req.body
-
+    console.log(new_req)
     let new_book = {
+        picture: new_req.picture,
         name: new_req.name,
         category_id: new_req.category_id,
         author_id: new_req.author_id,
@@ -80,7 +81,9 @@ adminRouter.post('/books', (req, res) => {
 adminRouter.post('/books/:id/edit', (req, res) => {
     let new_req = JSON.parse(Object.keys(req.body)[0])
     // let new_req = req.body
+    console.log(new_req)
     bookModel.updateOne({ _id: req.params.id }, {
+        picture: new_req.picture,
         name: new_req.name,
         category_id: new_req.category_id,
         author_id: new_req.author_id

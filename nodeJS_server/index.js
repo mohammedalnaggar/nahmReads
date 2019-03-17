@@ -10,10 +10,10 @@ const app = express();
 const categoriesRouter = require('./routes/categoriesRouter')
 const usersRouter = require('./routes/usersRouter')
 const adminRouter = require('./routes/adminRouter')
-// const categoriesRouter = require('./routes/categoryRouter')
 const authorsRouter = require('./routes/authorsRouter')
 const booksRouter = require('./routes/booksRouter')
 const homeRouter = require('./routes/homeRouter')
+const photoRouter = require('./routes/photoRouter')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
 
@@ -39,19 +39,10 @@ var upload = multer({   storage: storage,
                         limits: { fileSize: '50mb' }}).single('photo');
 
 
-app.post('/photo',express.static("/upload"),function(req,res){
-    console.log("REQ",req.headers); //file is there in the body
-    upload(req,res,function(err) {
 
-        if(err) {
-            console.log(err)
-            return res.end(null);
-        }
-        console.log("File is uploaded")
-        res.end(res.req.file.filename);
-    });
-});
 ///////////////////////////////////////
+// photo route handler
+app.use('/photo', photoRouter)
 // users route handler
 app.use('/users', usersRouter)
 // admin route handler

@@ -243,6 +243,7 @@ function listAuthorsCategories() {
 };
 // fill menues with response data
 function fillMenues(formID, response) {
+  console.log(response)
   let newBookForm = document.getElementById(formID)
   let categoriesMenu = newBookForm.getElementsByClassName("dropdown-menu")[0]
   let authorsMenu = newBookForm.getElementsByClassName("dropdown-menu")[1]
