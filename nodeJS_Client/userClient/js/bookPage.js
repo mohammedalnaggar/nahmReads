@@ -35,7 +35,8 @@ function fillBookPage() {
 
       document.getElementById('avgRating').innerText = new_res.book.rating
       let div = document.getElementsByClassName("thumbnails")[0]
-
+      ///rating
+      rate(div)
       ////add listener on selection from menue
       let liTags = div.getElementsByTagName("li")
       for (let i = 0; i < 3; i++) {
@@ -43,6 +44,7 @@ function fillBookPage() {
           shelve(this.innerText, localStorage.getItem("bookId"))
         })
       }
+
       // show image
       let bookImage=document.getElementById("bookImage")
       getImage(new_res.book.picture,bookImage)

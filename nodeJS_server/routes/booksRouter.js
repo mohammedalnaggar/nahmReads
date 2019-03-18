@@ -41,8 +41,7 @@ booksRouter.post('/:id', (req, res) => {
 ///////////////////////////////////////////////////////////////////////
 ///////////////////book rating router//////////////////////////////////
 booksRouter.post('/:id/rate', (req, res) => {
-    // let new_req = JSON.parse(Object.keys(req.body)[0])
-    let new_req = req.body
+    let new_req = JSON.parse(Object.keys(req.body)[0])
     let user = new_req.user_id
     let booksArr = []
     userModel.findById(user)
@@ -53,17 +52,11 @@ booksRouter.post('/:id/rate', (req, res) => {
                     booksArr.push(book)
                 }
             })
-            console.log(booksArr)
             if (booksArr.length != 0) {
-                userModel.updateOne({ _id: user }, { books: booksArr })
-                    .then((err) => {
-                        if (!err) {
-                            console.log("updated")
-                        }
-                    })
-                bookModel.findOne({_id:req.params.id}).exec((err,data)=>{
-                    if (!err){console.log(data)}
-                })    
+                userModel.findOneAndUpdate({ _id: user }, { books: booksArr },(err)=>{
+                    if(!err)res.send("done")
+                })
+   
             }
         })
 
@@ -86,10 +79,9 @@ booksRouter.post('/:id/shelve', (req, res) => {
                 }
                 booksArr.push(book)
                 console.log(data)
-                console.log("11111111111111111111111")
             })
             console.log(flag)
-            if (!flag) { console.log("22222222222222");booksArr.push({ book_id: req.params.id, status: new_req.status, user_rating: 0 }) }
+            if (!flag) { booksArr.push({ book_id: req.params.id, status: new_req.status, user_rating: 0 }) }
             userModel.updateOne({ _id: user }, { books: booksArr })
                 .then((data) => {
                     res.send("done")

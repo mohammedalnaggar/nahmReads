@@ -42,7 +42,7 @@ function fillAuthorPage() {
         bookName.addEventListener('mouseout', ()=>{
           bookName.style.color = "white";
         })
-
+        // rate(div)
         // filling avg ratring 
         let avgStars = div.getElementsByClassName('rate')[0].children
         for (let i = 0; i < Math.round(book.book.rating); i++) {
@@ -58,6 +58,7 @@ function fillAuthorPage() {
         for (let i = 0; i < Math.round(book.user_rating); i++) {
           userstars[i].src = './images/goldenstar.png'
         }
+        rate(div)
 
         // book image
         console.log(book)
