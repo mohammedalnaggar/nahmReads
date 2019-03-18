@@ -14,31 +14,22 @@ const authorsRouter = require('./routes/authorsRouter')
 const booksRouter = require('./routes/booksRouter')
 const homeRouter = require('./routes/homeRouter')
 const photoRouter = require('./routes/photoRouter')
+// const adminModel = require('./models/adminModel')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
-
+// let new_uadmin = {
+//     email: "mahmoudalaa25492@gmail.com",
+//     password: "12345678"
+// }
+// adminModel.create(new_uadmin,(err,data)=>{
+// console.log(err)
+// })
 // allow client to recive ajax requests
 app.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Headers", "user_id")
     next();
 });
-//////////multer//////////////
-var multer  = require('multer');
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now())
-
-    }
-});
-
-var upload = multer({   storage: storage,
-                        limits: { fileSize: '50mb' }}).single('photo');
-
-
 
 ///////////////////////////////////////
 // photo route handler

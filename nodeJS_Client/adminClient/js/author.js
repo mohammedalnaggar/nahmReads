@@ -59,8 +59,6 @@ function listAuthors() {
 };
 
 function fillAuthorEditForm(el) {
-  console.log(el)
-  console.log(el.parentElement.parentElement.firstElementChild.innerText)
   let authorID = el.parentElement.parentElement.firstElementChild.innerText
   let form = document.getElementById("editAuthorForm")
   let inputsTF = form.getElementsByTagName("input")

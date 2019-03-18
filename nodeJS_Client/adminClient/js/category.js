@@ -18,22 +18,15 @@ categoryAddBtn.addEventListener("click", function (evt) {
 });
 
 function editCategories(uri) {
-  // console.log('from editCategoies func')
-  // console.log(rowToEdit)
-
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.response)[JSON.parse(this.response).length - 1]
       let category_arr = [response._id, response.name]
-      // console.log(category_arr)
-      // addRow("categoriesTable", category_arr)
-      // editRow(rowToEdit, category_arr)
     }
   };
   xhttp.open("POST", `http://127.0.0.1:5000/admin/categories/${uri}/update`);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  // xhttp.setRequestHeader("Access-Control-Allow-Methods", "PUT");
   xhttp.send(JSON.stringify({
     "name": document.getElementById("categoryEditTF").value
   }));

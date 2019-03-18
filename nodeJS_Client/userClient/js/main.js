@@ -41,7 +41,7 @@ $('.tab a').on('click', function (e) {
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
                   if (this.readyState == 4 && this.status == 200) {
-                    if (this.response){location.reload();console.log("hi")}
+                    if (this.response){location.reload()}
                   }
                 };
                 xhttp.open("POST", `http://127.0.0.1:5000/books/${book_id}/shelve`);
@@ -52,74 +52,3 @@ $('.tab a').on('click', function (e) {
                 }))
             }
 
-// $('#star1').hover(
-//     function(){
-//       $(this).attr('src','../images/goldenstar.png')
-//     },
-//     function(){
-//       $(this).attr('src','../images/emptystar.png')
-//     }
-// )
-
-
-//   <div class="tab-content">
-
-//             <div id="allBooksTab">
-
-//                 <!-- Boxes -->
-
-//                 <div class="thumbnails" >
-
-
-//                     <div class="box" style="height:10%">
-//                         <div class="inner">
-//                             <h2>Romance</h2>
-//                             <a href="" class="button style2 fit">Visit this category page</a>
-//                         </div>
-//                     </div>
-
-//                     <div class="box" style="height:10%">
-//                         <div class="inner">
-//                             <h2>Romance</h2>
-//                             <a href="" class="button style2 fit">Visit this category page</a>
-//                         </div>
-//                     </div>
-
-//                     <div class="box" style="height:10%">
-//                         <div class="inner">
-//                             <h2>Romance</h2>
-//                             <a href="" class="button style2 fit">Visit this category page</a>
-//                         </div>
-//                     </div>
-
-
-//                 </div>
-
-//             </div>
-
-//             <!-- read tab -->
-//             <div  id="readTab">
-
-//                 <!-- Boxes -->
-//                 <div class="thumbnails" >
-
-
-//                     <div class="box" style="height:10%">
-//                         <div class="inner">
-//                             <h2>Tab 2</h2>
-//                             <a href="" class="button style2 fit">Visit this category page</a>
-//                         </div>
-//                     </div>
-
-//                     <div class="box" style="height:10%">
-//                         <div class="inner">
-//                             <h2>Tab 2</h2>
-//                             <a href="" class="button style2 fit">Visit this category page</a>
-//                         </div>
-//                     </div>
-
-
-//                 </div>
-
-//             </div>
-//         </div>

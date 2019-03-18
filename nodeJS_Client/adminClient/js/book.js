@@ -5,9 +5,7 @@ bookAddBtn.addEventListener("click", function (evt) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      console.log(this.response)
       let response=JSON.parse(this.response)[JSON.parse(this.response).length-1]
-      console.log(response.name)
       let book_arr = [response._id,response.picture,response.name, response.category_id,response.author_id]
       addRow(2,"booksTable",book_arr)
     }
@@ -48,7 +46,6 @@ function listBooks() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      console.log(this.response)
       listRows(this.response,"booksTable")
     }
   };

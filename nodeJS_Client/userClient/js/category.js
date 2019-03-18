@@ -29,6 +29,8 @@ window.addEventListener("load", (evt) => {
             window.location.href='./bookPage.html'
 
           })
+          let bookImage=div.getElementsByTagName("img")[0]
+          getImage(book.picture,bookImage)
 // add event listeners to send you to author page
         });
       }

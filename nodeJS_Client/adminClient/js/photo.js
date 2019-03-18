@@ -12,6 +12,7 @@ uploadButtons[i].addEventListener('change', function(event) {
       if (this.response){
         localStorage.setItem("current_image_name",this.response)
       }
+      else{localStorage.setItem("current_image_name",null)}
       //do what you want with the image name returned
       //e.g update the interface
     }

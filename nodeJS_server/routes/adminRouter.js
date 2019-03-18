@@ -11,7 +11,6 @@ adminRouter.post('/', (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
     adminModel.find({ email: newReq.email, password: newReq.password }, (err, data) => {
         if (err || data.length === 0) {
-            console.log(data)
             res.send(null);
         } else {
             // console.log(data[0].tokens)
@@ -31,8 +30,7 @@ adminRouter.post('/', (req, res) => {
             adminModel.updateOne({ email: newReq.email, password: newReq.password },
                 { $set: { tokens: ntokens } }, (err, data) => {
                     if (err)
-                        {console.log(err)
-                        res.send(null)}
+                        {res.send(null)}
                     else {
                         res.send(token)
                         
@@ -81,7 +79,6 @@ adminRouter.post('/books', (req, res) => {
 adminRouter.post('/books/:id/edit', (req, res) => {
     let new_req = JSON.parse(Object.keys(req.body)[0])
     // let new_req = req.body
-    console.log(new_req)
     bookModel.updateOne({ _id: req.params.id }, {
         picture: new_req.picture,
         name: new_req.name,
@@ -114,7 +111,6 @@ adminRouter.get("/authors", (req, res) => {
 adminRouter.post("/authors", (req, res) => {
     let newReq = JSON.parse(Object.keys(req.body)[0])
     // let newReq=req.body
-    console.log(newReq)
     const author = new authorModel({picture:newReq.picture ,first_name:newReq.first_name,last_name:newReq.last_name,birth_date:newReq.birth_date});
     author.save((err,data)=>{
         if(!err)res.redirect("/admin/authors");

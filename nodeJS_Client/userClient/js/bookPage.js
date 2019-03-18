@@ -8,15 +8,11 @@ function fillBookPage() {
 
   let userId = localStorage.getItem('userId')
   let bookId = localStorage.getItem('bookId')
-  console.log(userId + " user ID")
-  console.log(bookId + " Book ID")
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let new_res = JSON.parse(this.response)
-      console.log(new_res)
-
       // user shelve
       document.getElementsByTagName('span')[1].innerText = new_res.status
 
@@ -62,16 +58,5 @@ function fillBookPage() {
 }
 
 
-function getImage(imageName,imageTag){
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      imageTag.setAttribute("src",`data:image/png;base64,`+this.response)
-    }
-  };
-  xhttp.open("GET", `http://127.0.0.1:5000/photo/${imageName}`);
-  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send()
 
-}
 

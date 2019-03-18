@@ -1,22 +1,16 @@
 window.addEventListener("load", (evt) => {
-  console.log('hiiiiiiiiii')
 
   fillAuthorPage();
 })
 
 function fillAuthorPage() {
 
-  console.log('hiiiiiiiiii')
   let userId = localStorage.getItem('userId')
   let authorId = localStorage.getItem('authorId')
-  console.log(userId + " user ID")
-
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let new_res = JSON.parse(this.response)
-      console.log(new_res)
-
       document.getElementById("authorName").innerText = new_res.author.first_name+" "+new_res.author.last_name
       // DOB
       let date = new Date(new_res.author.birth_date)
