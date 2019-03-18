@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const userModel = require('./userModel')
 const bookSchema = new mongoose.Schema ({
+    picture:{
+        type: "string",
+    },
     name:{
             type: "string",
             required: true
@@ -37,7 +40,7 @@ bookSchema.post("findOne",function(doc) {
         })
         doc.rating=sum_rating/count
         doc.save((err)=>{
-            if (!err){console.log("hello")}
+            if (!err){console.log("done")}
         })
     })
 })

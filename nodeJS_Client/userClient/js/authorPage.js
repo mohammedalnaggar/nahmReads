@@ -1,22 +1,29 @@
 window.addEventListener("load", (evt) => {
+<<<<<<< HEAD
   // let div =document.getElementsByClassName("thumbnails")[0]
   // rate(div)
+=======
+
+>>>>>>> 086d6e443fe4adb75063d180f68a818a17f9f3d1
   fillAuthorPage();
 })
 
 function fillAuthorPage() {
 
+<<<<<<< HEAD
   let userId = localStorage.getItem("userId")
   let authorId = localStorage.getItem("authorId")
   console.log(userId + " user ID")
   console.log(authorId + " Author ID")
 
+=======
+  let userId = localStorage.getItem('userId')
+  let authorId = localStorage.getItem('authorId')
+>>>>>>> 086d6e443fe4adb75063d180f68a818a17f9f3d1
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let new_res = JSON.parse(this.response)
-      console.log(new_res)
-
       document.getElementById("authorName").innerText = new_res.author.first_name+" "+new_res.author.last_name
       // DOB
       let date = new Date(new_res.author.birth_date)

@@ -46,7 +46,6 @@ function openEditForm(x, el) {
   // const route = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
   if (x === 1) {
     document.getElementById("editCategoryForm").style.display = "block";
-    console.log('from open edit form')
     fillEditForm(el);
   }
   if (x === 2) {
@@ -59,8 +58,6 @@ function openEditForm(x, el) {
   }
   if (x === 3) {
     document.getElementById("editAuthorForm").style.display = "block";
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-    console.log(el.parentElement.parentElement.getElementsByTagName("td")[0].innerText)
     document.getElementById("editAuthorId").value = el.parentElement.parentElement.getElementsByTagName("td")[0].innerText
     fillAuthorEditForm(el);
   }
@@ -97,7 +94,6 @@ function deleteRow(el) {
       if (willDelete) {
         // move the old text inside here
         let route = el.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id")
-        console.log(route)
         // while there are parents, keep going until reach TR 
         while (el.parentNode && el.tagName.toLowerCase() != 'tr') {
           el = el.parentNode
@@ -106,12 +102,11 @@ function deleteRow(el) {
 
           let idToDelete = el.firstElementChild.innerText
 
-          console.log(idToDelete)
           // send the request to the server here 
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-              console.log(this.response);
+
             }
           };
           xhttp.open("GET", `http://127.0.0.1:5000/admin/${route}/${idToDelete}/delete`);
@@ -131,24 +126,6 @@ function deleteRow(el) {
 
 }
 
-// naggar and anas last version from editRow << has an error
-// function editRow( rowToEdit , newarr= null) {
-//   console.log("from edit row func")
-//   console.log(rowToEdit)
-
-//   let inputs = rowToEdit.getElementsByTagName('td');
-//   console.log('...........')
-//   console.log('tds arr from table')
-//   console.log(inputs)
-//   console.log('new arr  from edit form')
-//   console.log(newarr)  ;console.log('...........')
-
-//   for (let i = 0, iLen = inputs.length; i < iLen-1; i++) {
-
-//       inputs[i].innerText = newarr[i]
-//   }
-// }
-
 function addRow(formNum, tableID, data = null) {
   let table = document.getElementById(tableID);
   const route = table.parentElement.parentElement.getAttribute("id")
@@ -158,7 +135,6 @@ function addRow(formNum, tableID, data = null) {
   newRow.style.display = "table-row"
   // Now get the inputs and modify their names 
   let inputs = newRow.getElementsByTagName('td');
-  console.log(111)
   for (let i = 0, iLen = inputs.length; i < iLen; i++) {
     // Update inputs[i]
 
@@ -175,7 +151,6 @@ function addRow(formNum, tableID, data = null) {
 
       // put your object attributes here
       inputs[i].innerText = data[i]
-      console.log(data[i])
     }
   }
   // Add the new row to the tBody (required for IE)
@@ -187,10 +162,6 @@ function addRow(formNum, tableID, data = null) {
 function fillEditForm(el) {
   let category_id = el.parentElement.parentElement.getElementsByTagName('td')[0].innerText
   let rowToEdit = el.parentElement.parentElement
-  console.log('from fill edit form')
-  console.log(rowToEdit)
-  console.log(category_id + 'from fillEditForm')
-
   let sourceFillData = rowToEdit.firstElementChild.nextElementSibling.innerText
   document.getElementById("categoryEditTF").value = sourceFillData
   document.getElementById("editCategoryBtn").addEventListener("click", (evt) => {
