@@ -11,6 +11,7 @@ function listBooks() {
       let response = JSON.parse(this.response)
       response.forEach(book => {
         let div = document.createElement("div")
+        //rate(div)
         books_div.appendChild(div)
         div.innerHTML = book_div.innerHTML
         div.setAttribute("id", book._id)
@@ -28,11 +29,11 @@ function listBooks() {
         })
 
         div.getElementsByTagName('button')[1].addEventListener('click', () => {
-          console.log(1)
           localStorage.setItem('authorId',book.author_id._id)
           window.location.href='./authorPage.html'
         })
-
+        // let div =document.getElementsByClassName("thumbnails")[0]
+        // rate(div)
       });
     }
   };

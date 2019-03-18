@@ -7,6 +7,7 @@ window.addEventListener("load", (evt) => {
     listBooks();
 })
 
+
 ////////function to list books of user
 function listBooks() {
     var xhttp = new XMLHttpRequest();
@@ -19,6 +20,7 @@ function listBooks() {
             response.books.books.forEach((book) => {
                 
                 let div = document.createElement("div")
+                //rate(div)
                 //////all section/////////////////
                 books_div.appendChild(div)
                 hyberBook(div,book,response,inc)
@@ -41,7 +43,8 @@ function listBooks() {
                     books_want_div.appendChild(div)
                     hyberBook(div,book,response,inc)
                 }
-
+                // let div =document.getElementsByClassName("thumbnails")[0]
+                // rate(div)
                 inc++
 
                 // add event listeners to send you to author page

@@ -1,15 +1,15 @@
 window.addEventListener("load", (evt) => {
-  console.log('hiiiiiiiiii')
-
+  // let div =document.getElementsByClassName("thumbnails")[0]
+  // rate(div)
   fillAuthorPage();
 })
 
 function fillAuthorPage() {
 
-  console.log('hiiiiiiiiii')
-  let userId = localStorage.getItem('userId')
-  let authorId = localStorage.getItem('authorId')
+  let userId = localStorage.getItem("userId")
+  let authorId = localStorage.getItem("authorId")
   console.log(userId + " user ID")
+  console.log(authorId + " Author ID")
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -22,11 +22,11 @@ function fillAuthorPage() {
       let date = new Date(new_res.author.birth_date)
       let EditedDate = conv_to_date(date)
       document.getElementById("BOD").innerText = EditedDate
-      
-    
+      let div =document.getElementsByClassName("thumbnails")[0]
+      // rate(div)
     }
   };
-  xhttp.open("GET", `http://127.0.0.1:5000/authors/${userId}/${authorId}`);
+  xhttp.open("GET", `http://127.0.0.1:5000/authors/5c8e462ddd97366afe000be5/5c8e3eb4d3722941f81f7866`);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send();
 
