@@ -24,7 +24,10 @@ function listCategoryBooks() {
         book_button.addEventListener("click", () => {
           localStorage.setItem("bookId", book._id)
           window.location.href = './bookPage.html'
+
         })
+        let bookImage = div.getElementsByTagName("img")[0]
+        getImage(book.picture, bookImage)
         // add event listeners to send you to author page
         div.getElementsByTagName('button')[1].addEventListener('click', () => {
           localStorage.setItem('authorId', book.author_id._id)

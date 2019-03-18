@@ -8,7 +8,7 @@ const booksRouter = express.Router()
 booksRouter.get('/', (req, res) => {
     bookModel.find({})
         .populate({ path: 'author_id', select: "first_name last_name" })
-        .select("name author_id")
+        .select("name author_id picture")
         .then((data) => {
             res.send(data)
         })
@@ -20,10 +20,8 @@ booksRouter.post('/:id', (req, res) => {
     // let new_req = req.body
     let user = new_req.user_id
     let book_data = { book: null, status: null, user_rating: null }
-    console.log(user)
     userModel.findById(user)
         .then((data) => {
-            console.log(data)
             data.books.forEach((book) => {
                 if (req.params.id == book.book_id) {
                     book_data.status = book.status
@@ -87,9 +85,11 @@ booksRouter.post('/:id/shelve', (req, res) => {
                     flag=true
                 }
                 booksArr.push(book)
+                console.log(data)
+                console.log("11111111111111111111111")
             })
-            if (!flag) { booksArr.push({ book_id: req.params.id, status: new_req.status, user_rating: 0 }) }
-            console.log(booksArr)
+            console.log(flag)
+            if (!flag) { console.log("22222222222222");booksArr.push({ book_id: req.params.id, status: new_req.status, user_rating: 0 }) }
             userModel.updateOne({ _id: user }, { books: booksArr })
                 .then((data) => {
                     res.send("done")

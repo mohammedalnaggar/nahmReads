@@ -10,13 +10,20 @@ const app = express();
 const categoriesRouter = require('./routes/categoriesRouter')
 const usersRouter = require('./routes/usersRouter')
 const adminRouter = require('./routes/adminRouter')
-// const categoriesRouter = require('./routes/categoryRouter')
 const authorsRouter = require('./routes/authorsRouter')
 const booksRouter = require('./routes/booksRouter')
 const homeRouter = require('./routes/homeRouter')
+const photoRouter = require('./routes/photoRouter')
+// const adminModel = require('./models/adminModel')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
-
+// let new_uadmin = {
+//     email: "mahmoudalaa25492@gmail.com",
+//     password: "12345678"
+// }
+// adminModel.create(new_uadmin,(err,data)=>{
+// console.log(err)
+// })
 // allow client to recive ajax requests
 app.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin","*")
@@ -26,35 +33,10 @@ app.use(function(req,res,next){
     // res.header("Access-Control-Allow-Headers", "access_token")
     next();
 });
-//////////multer//////////////
-var multer  = require('multer');
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now())
 
-    }
-});
-
-var upload = multer({   storage: storage,
-                        limits: { fileSize: '50mb' }}).single('photo');
-
-
-app.post('/photo',express.static("/upload"),function(req,res){
-    console.log("REQ",req.headers); //file is there in the body
-    upload(req,res,function(err) {
-
-        if(err) {
-            console.log(err)
-            return res.end(null);
-        }
-        console.log("File is uploaded")
-        res.end(res.req.file.filename);
-    });
-});
 ///////////////////////////////////////
+// photo route handler
+app.use('/photo', photoRouter)
 // users route handler
 app.use('/users', usersRouter)
 // admin route handler

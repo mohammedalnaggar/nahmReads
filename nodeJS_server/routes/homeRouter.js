@@ -12,6 +12,8 @@ homeRouter.get("/", (req, res) => {
         .populate("books.book_id")
         .select("books name")
         .then((data) => {
+            console.log(data)
+            if (data){
             data_object.books = data
             const arr_len = data.books.length
             let inc = 0
@@ -25,6 +27,7 @@ homeRouter.get("/", (req, res) => {
 
                     })
             })
+        }
         })
 });
 

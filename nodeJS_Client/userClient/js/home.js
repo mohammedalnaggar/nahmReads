@@ -109,5 +109,7 @@ function hyberBook(div,book,response,inc){
         localStorage.setItem("authorId",this.id)
         window.location.href='./authorPage.html'
     })
+    let bookImage=div.getElementsByTagName("img")[0]
+    getImage(book.book_id.picture,bookImage)
 
 }
