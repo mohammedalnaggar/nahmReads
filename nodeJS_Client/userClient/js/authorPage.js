@@ -21,7 +21,8 @@ function fillAuthorPage() {
       let date = new Date(new_res.author.birth_date)
       let EditedDate = conv_to_date(date)
       document.getElementById("BOD").innerText = EditedDate
-      
+      let authorImage=books_div.getElementsByTagName("img")[0]
+      getImage(new_res.author.picture,authorImage)
       new_res.authorbooks.forEach(book => {
         let div = document.createElement("div")
         div.setAttribute('class', 'box')

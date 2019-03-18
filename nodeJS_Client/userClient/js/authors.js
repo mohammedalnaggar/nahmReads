@@ -24,6 +24,8 @@ function listAuthors() {
           localStorage.setItem('authorId', author._id)
           window.location.href = './authorPage.html'
         })
+        let authorImage=div.getElementsByTagName("img")[0]
+        getImage(author.picture,authorImage)
       });
       // let div =document.getElementsByClassName("thumbnails")[0]
      // rate(div)
