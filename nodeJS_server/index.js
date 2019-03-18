@@ -21,6 +21,9 @@ app.use(express.json())
 app.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Headers", "user_id")
+    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, access_token");
+
+    // res.header("Access-Control-Allow-Headers", "access_token")
     next();
 });
 //////////multer//////////////
@@ -56,6 +59,41 @@ app.post('/photo',express.static("/upload"),function(req,res){
 app.use('/users', usersRouter)
 // admin route handler
 app.use('/admin', adminRouter)
+
+//////   // AUTH  \\    ////////
+
+// const  ProtectedRoutes = express.Router(); 
+
+// app.use('/auth', ProtectedRoutes);
+
+// ProtectedRoutes.use((req, res, next) =>{
+//     // check header for the token
+//     var token = req.headers['access-token'];
+//     // decode token
+//     if (token) {
+//       // verifies secret and checks if the token is expired
+//       jwt.verify(token, "naggarsecret", (err, decoded) =>{      
+//         if (err) {
+//           return res.json({ message: 'invalid token' });    
+//         } else {
+//           // if everything is good, save to request for use in other routes
+//           console.log(decoded)
+//           req.decoded = decoded;  
+//           // will route him to the next route handler with the decoded token attached
+//           next();
+//         }
+//       });
+
+//     } else {
+//       // if there is no token  
+//       res.send({ 
+//           hamani: 'no toke',
+//           message: 'No token provided.' 
+//       });
+//     }
+//   });
+
+
 // authors route handler
 app.use('/authors', authorsRouter)
 // categories route handler

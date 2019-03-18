@@ -100,6 +100,7 @@ usersRouter.post('/login', (req, res, next) => {
                 }, (err, data) => {
                     if (!err) {
                         // send the new token to the client
+                        console.log("token value" + token.token)
                         res.send({
                             user_id,
                             message: "authinticated",

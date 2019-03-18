@@ -28,7 +28,6 @@ function listBooks() {
         })
 
         div.getElementsByTagName('button')[1].addEventListener('click', () => {
-          console.log(1)
           localStorage.setItem('authorId',book.author_id._id)
           window.location.href='./authorPage.html'
         })
