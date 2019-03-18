@@ -1,7 +1,7 @@
 let bookName = document.getElementById('bookName')
 window.addEventListener("load", (evt) => {
   fillBookPage();
-  
+  showReviews();
 })
 
 function fillBookPage() {
@@ -46,9 +46,13 @@ function fillBookPage() {
       }
 
       // show image
-      let bookImage=document.getElementById("bookImage")
-      getImage(new_res.book.picture,bookImage)
-
+      let bookImage = document.getElementById("bookImage")
+      getImage(new_res.book.picture, bookImage)
+      //review functionality
+      let addReviewBtn = document.getElementById("addReviewBtn")
+      addReviewBtn.addEventListener("click", () => {
+        AddReview()
+      })
     }
   };
   xhttp.open("POST", `http://127.0.0.1:5000/books/${bookId}`);
@@ -60,5 +64,52 @@ function fillBookPage() {
 }
 
 
+function showReviews() {
+  let bookId = localStorage.getItem('bookId')
 
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let new_res = JSON.parse(this.response)
+      console.log(new_res)
+      new_res.forEach(review => {
+        let div = document.createElement("div")
+        div.setAttribute("class","thumbnails2")
+        let ReviewsDiv = document.getElementsByClassName("inner")[0]
+        ReviewsDiv.appendChild(div)
+        let reviewDiv = document.getElementById("reviewDiv")
+        div.innerHTML = reviewDiv.innerHTML
+        div.getElementsByTagName("h1")[0].innerText=review.user_id.name.first_name+" "+review.user_id.name.last_name
+        div.getElementsByTagName("p")[0].innerText=review.comment
+      })
+    }
+  };
+  xhttp.open("GET", `http://127.0.0.1:5000/books/${bookId}/comments`);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send();
 
+}
+
+function AddReview() {
+  let addReviewDiv = document.getElementsByClassName("thumbnails")[1]
+  let textArea = addReviewDiv.getElementsByTagName("textarea")[0]
+  let review = textArea.value
+  let bookId = localStorage.getItem('bookId')
+  let userId = localStorage.getItem('userId')
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let new_res = JSON.parse(this.response)
+      window.location.reload()
+
+    }
+  };
+  xhttp.open("POST", `http://127.0.0.1:5000/books/${bookId}/comments`);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(JSON.stringify({
+    comment: review,
+    user_id: userId
+  }));
+
+}
