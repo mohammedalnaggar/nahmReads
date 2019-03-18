@@ -122,6 +122,18 @@ function retrieve_rate(total_rate) {
     document.getElementById("_" + i.toString()).src = "images/goldenstar.png";
   }
 }
+
+document.getElementsByClassName("highlight")[0].addEventListener("click",()=>{
+  logout()
+})
+
+function logout(){
+  window.location.href="./html/users_index.html"
+  localStorage.setItem("userId",null)
+  localStorage.setItem("authorId",null)
+  localStorage.setItem("bookId",null)
+  localStorage.setItem("categoryId",null)
+}
             // // for drop down menu
             // /*Dropdown Menu*/
             // $('.dropdown').click(function () {
