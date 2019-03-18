@@ -32,13 +32,8 @@ function listBooks() {
           localStorage.setItem('authorId',book.author_id._id)
           window.location.href='./authorPage.html'
         })
-<<<<<<< HEAD
-        // let div =document.getElementsByClassName("thumbnails")[0]
-        // rate(div)
-=======
         let bookImage=div.getElementsByTagName("img")[0]
         getImage(book.picture,bookImage)
->>>>>>> 086d6e443fe4adb75063d180f68a818a17f9f3d1
       });
     }
   };

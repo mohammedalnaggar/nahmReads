@@ -58,6 +58,11 @@ function fillAuthorPage() {
           userstars[i].src = './images/goldenstar.png'
         }
 
+        // book image
+        console.log(book)
+        let bookImage=div.getElementsByTagName("img")[0]
+        getImage(book.book.picture,bookImage)
+
 
          // for drop down menu
             /*Dropdown Menu*/
@@ -88,7 +93,7 @@ function fillAuthorPage() {
 
     }
   };
-  xhttp.open("GET", `http://127.0.0.1:5000/authors/5c8e462ddd97366afe000be5/5c8e3eb4d3722941f81f7866`);
+  xhttp.open("GET", `http://127.0.0.1:5000/authors/${userId}/${authorId}`);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send();
 
