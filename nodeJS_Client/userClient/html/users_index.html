@@ -90,10 +90,13 @@
             <input id="passwordLogin" type="password"required autocomplete="off"/>
           </div>
           
-          <p class="forgot"><a href="#">Forgot Password?</a></p>
+          <p class="forgot"><a id="forget" href="#">Forgot Password?</a></p>
           
           <button class="button button-block"/>Log In</button>
           <div id="wrong" style="display:none;color: deeppink;margin: 0 auto;">invalid password or email</div>
+          <div id="error" style="display:none;color: deeppink;margin: 0 auto;">error please try later</div>
+          <div id="done" style="display:none;color: deeppink;margin: 0 auto;">please check your emailemail</div>
+
 
           </form>
 
@@ -103,6 +106,7 @@
       
 </div> <!-- /form -->
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script  src="../js/forget.js"></script>
   <script  src="../js/signup.js"></script>
   <script  src="../js/login.js"></script>
     <script  src="../js/users_index.js"></script>

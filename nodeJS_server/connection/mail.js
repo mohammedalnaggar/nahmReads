@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var nodemailer = require('nodemailer');
-function send_mail(email){
+function send_mail(email,subject,message){
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -12,8 +12,8 @@ var transporter = nodemailer.createTransport({
    const mailOptions = {
     from: 'nahm.reads@gmail.com', // sender address
     to: email, // list of receivers
-    subject: 'welcome to nahm reads', // Subject line
-    html: 'thank you for registering in nahm reads'
+    subject: subject, // Subject line
+    html: message
   };
 
   transporter.sendMail(mailOptions, function (err, info) {
