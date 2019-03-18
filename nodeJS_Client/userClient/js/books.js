@@ -11,6 +11,7 @@ function listBooks() {
       let response = JSON.parse(this.response)
       response.forEach(book => {
         let div = document.createElement("div")
+        //rate(div)
         books_div.appendChild(div)
         div.innerHTML = book_div.innerHTML
         div.setAttribute("id", book._id)
@@ -31,8 +32,13 @@ function listBooks() {
           localStorage.setItem('authorId',book.author_id._id)
           window.location.href='./authorPage.html'
         })
+<<<<<<< HEAD
+        // let div =document.getElementsByClassName("thumbnails")[0]
+        // rate(div)
+=======
         let bookImage=div.getElementsByTagName("img")[0]
         getImage(book.picture,bookImage)
+>>>>>>> 086d6e443fe4adb75063d180f68a818a17f9f3d1
       });
     }
   };

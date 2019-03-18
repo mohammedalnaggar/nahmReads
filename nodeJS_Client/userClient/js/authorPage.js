@@ -8,6 +8,8 @@ function fillAuthorPage() {
 
   let userId = localStorage.getItem("userId")
   let authorId = localStorage.getItem("authorId")
+  console.log(userId + " user ID")
+  console.log(authorId + " Author ID")
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -86,7 +88,7 @@ function fillAuthorPage() {
 
     }
   };
-  xhttp.open("GET", `http://127.0.0.1:5000/authors/${userId}/${authorId}`);
+  xhttp.open("GET", `http://127.0.0.1:5000/authors/5c8e462ddd97366afe000be5/5c8e3eb4d3722941f81f7866`);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send();
 

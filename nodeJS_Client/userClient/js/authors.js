@@ -25,6 +25,8 @@ function listAuthors() {
           window.location.href = './authorPage.html'
         })
       });
+      // let div =document.getElementsByClassName("thumbnails")[0]
+     // rate(div)
     }
   };
   xhttp.open("GET", "http://127.0.0.1:5000/authors");
