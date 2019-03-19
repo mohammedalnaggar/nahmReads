@@ -21,6 +21,7 @@ function listCategoryBooks() {
         categoryName_span.innerHTML = book.category_id.name
         div.style.display = true
         let book_button = div.getElementsByTagName("button")[0]
+        
         book_button.addEventListener("click", () => {
           localStorage.setItem("bookId", book._id)
           window.location.href = './bookPage.html'

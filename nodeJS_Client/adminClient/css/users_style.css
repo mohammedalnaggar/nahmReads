@@ -53,11 +53,11 @@ a:hover {
   transition: .5s ease;
 }
 .tab-group li a:hover {
-  background: #179b77;
+  background: #f77763;
   color: #ffffff;
 }
 .tab-group .active a {
-  background: #1ab188;
+  background: #df5440;
   color: #ffffff;
 }
 
@@ -153,13 +153,13 @@ textarea {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
+  background: #df5440;
   color: #ffffff;
   transition: all 0.5s ease;
   -webkit-appearance: none;
 }
 .button:hover, .button:focus {
-  background: #179b77;
+  background: #df5440;
 }
 
 .button-block {

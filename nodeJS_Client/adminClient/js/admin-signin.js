@@ -9,9 +9,7 @@ but.addEventListener("click", function () {
         window.location.href = "admin_home.html";
       }
       else {
-        document.getElementById("usernamee").value=""
-        document.getElementById("passwordd").value=""
-        document.getElementById("wrong").style.display = "table"
+        swal("Oops" ,"Invalid username or password!" ,  "error")
       }
     }
 

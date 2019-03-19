@@ -22,9 +22,9 @@ function request_response_login() {
                 window.location.href = "../index.html";
               }
               else {
+                swal("Oops" ,"Invalid username or password!" ,  "error")
                   document.getElementById("emailLogin").value=""
                   document.getElementById("passwordLogin").value=""
-                document.getElementById("wrong").style.display = "table"
               }
         }
     };

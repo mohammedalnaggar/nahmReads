@@ -47,10 +47,12 @@ function request_response() {
                 window.location.href = "../index.html";
               }
               else {
+                swal("Oops" ,"Invalid data!" ,  "error")
+
                 document.getElementById("emailSignup").value=""
                 document.getElementById("passwordSignup").value=""
                 document.getElementById("repasswordSignup").value=""
-                document.getElementById("wrong2").style.display = "table"
+                // document.getElementById("wrong2").style.display = "table"
               }
         }
     };
