@@ -52,6 +52,13 @@ function fillAuthorPage() {
 
         // filling shelve
         div.getElementsByTagName('span')[4].innerText = book.status
+           ////add listener on selection from menue
+        let liTags = div.getElementsByTagName("li")
+        for (let i = 0; i < 3; i++) {
+          liTags[i].addEventListener("click", function (event) {
+            shelve(this.innerText, localStorage.getItem("bookId"))
+          })
+        }
 
         // filling user_rating
         let userstars = div.getElementsByClassName('rate')[1].children

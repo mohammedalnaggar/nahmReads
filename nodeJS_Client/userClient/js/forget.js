@@ -15,9 +15,15 @@ function forget() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.response) {
+                console.log(this.response)
+                document.getElementById("wrong").style.display = "none"
+                document.getElementById("error").style.display = "none"
                 document.getElementById("done").style.display = "table"
+                
               }
               else {
+                document.getElementById("wrong").style.display = "none"
+                document.getElementById("done").style.display = "none"
                 document.getElementById("error").style.display = "table"
               }
         }

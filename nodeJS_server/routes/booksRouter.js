@@ -100,17 +100,17 @@ booksRouter.get('/:id/comments', (req, res) => {
 ///////////////////////////////////////////////////////////////////////
 /////////////////////////////save book reviews//////////////////////////////
 booksRouter.post('/:id/comments', (req, res) => {
-    // let new_req = JSON.parse(Object.keys(req.body)[0])
-    let new_req=req.body
+    let new_req = JSON.parse(Object.keys(req.body)[0])
+    // let new_req=req.body
     let new_comment = {
         comment: new_req.comment,
         user_id: new_req.user_id,
         book_id: req.params.id
     }
-
+    console.log(new_comment)
     commentModel.create(new_comment, (err, data) => {
         if (err) {
-            res.send(err)
+            res.send(null)
         }
         else {
             res.redirect(`/books/${req.params.id}/comments`)

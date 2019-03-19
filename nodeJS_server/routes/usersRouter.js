@@ -199,8 +199,12 @@ usersRouter.post("/forget", (req, res) => {
     let message=`<h3>your new password is</h3><div>${newPass}</div>`
     userModel.findOneAndUpdate({email:new_req.email},{password:md5(newPass)},(err,data)=>{
         if (!err){
+            if(data){
             send_mail(new_req.email,subject,message)
-            res.send("done")
+            res.send("done")}
+            else{
+                res.send(null)
+            }
         }
         else{
             res.send(null)
